@@ -1,0 +1,181 @@
+vocabulary:
+  name: HeyForm Vocabulary
+  description: >-
+    Domain terms and concepts used across the HeyForm API, data models, and
+    documentation. Covers the conversational form builder platform including
+    form structure, submission handling, workspaces, and integrations.
+  version: 1.0.0
+  source: https://docs.heyform.net
+  terms:
+
+    - term: Form
+      definition: >-
+        The primary resource in HeyForm. A form is a collection of ordered
+        fields presented conversationally to respondents. Forms can be
+        published (active), archived, or moved to trash.
+      aliases:
+        - survey
+        - quiz
+        - poll
+
+    - term: Field
+      definition: >-
+        A single question, statement, or interactive element within a form.
+        Each field has a kind (type), optional validations, layout settings,
+        and type-specific properties such as choices for multiple_choice fields.
+      aliases:
+        - question
+        - step
+
+    - term: Field Kind
+      definition: >-
+        The type of input a field collects. Supported kinds include:
+        short_text, long_text, multiple_choice, picture_choice, yes_no,
+        rating, opinion_scale, date, time, number, email, url, phone_number,
+        file_upload, payment, signature, thank_you, statement, welcome, group.
+
+    - term: Submission
+      definition: >-
+        A completed set of answers from a respondent for a specific form.
+        Submissions contain answers, hidden field values, calculated variables,
+        metadata (IP, user agent, timing), and a category (inbox/spam/archived).
+      aliases:
+        - response
+        - entry
+
+    - term: Answer
+      definition: >-
+        A respondent's response to a single form field within a submission.
+        The value type depends on the field kind (string, number, boolean, array, or object).
+
+    - term: Hidden Field
+      definition: >-
+        A non-visible form field pre-populated via URL query parameters or
+        integration data. Used to track campaign sources, user IDs, or other
+        contextual metadata without asking the respondent.
+
+    - term: Variable
+      definition: >-
+        A calculated value defined on a form that accumulates or transforms
+        field answers (e.g. quiz scores). Variables can be used in conditional
+        logic and displayed in thank-you messages.
+
+    - term: Logic
+      definition: >-
+        Conditional rules attached to form fields that control navigation
+        (branching), field visibility (show/hide), or variable modification
+        based on a respondent's answers.
+      aliases:
+        - conditional logic
+        - branching logic
+
+    - term: Publish
+      definition: >-
+        The act of making a form publicly accessible by setting its active
+        status to true. Only published forms accept responses.
+
+    - term: Workspace
+      definition: >-
+        The top-level organizational container in HeyForm, equivalent to a
+        team or organization account. Workspaces contain projects and forms
+        and have associated members, billing, and brand settings.
+      aliases:
+        - team
+        - organization
+
+    - term: Project
+      definition: >-
+        A folder within a workspace used to organize forms. Each form belongs
+        to exactly one project.
+      aliases:
+        - folder
+
+    - term: Integration
+      definition: >-
+        A configured connection between HeyForm and a third-party service
+        (e.g. Zapier, Slack, Google Sheets, Airtable, HubSpot, Mailchimp,
+        Notion, Telegram, Lark Suite) that triggers automated actions when
+        new submissions are received.
+
+    - term: Webhook
+      definition: >-
+        An HTTP callback configured on a form that sends a POST request with
+        the submission payload (JSON) to a user-specified URL whenever a new
+        response is submitted.
+
+    - term: OpenToken
+      definition: >-
+        An AES-encrypted token returned by the openForm GraphQL query that
+        records the timestamp when a respondent opened the form. Required as
+        input to the completeSubmission mutation to calculate time-to-complete
+        and for anti-bot validation.
+
+    - term: PasswordToken
+      definition: >-
+        An encrypted token returned after a respondent correctly enters the
+        form password. Required in the completeSubmission mutation for
+        password-protected forms.
+
+    - term: Brand Kit
+      definition: >-
+        Workspace-level visual identity settings (logo, colors, fonts) that
+        can be applied to forms to maintain consistent branding.
+
+    - term: Captcha Kind
+      definition: >-
+        The anti-bot mechanism configured for a form. Options are none,
+        google_recaptcha_v3, and geetest.
+
+    - term: Quota Limit
+      definition: >-
+        An optional ceiling on the total number of submissions a form will
+        accept. Once the quota is reached, new responses are rejected.
+
+    - term: IP Limit
+      definition: >-
+        An optional per-IP submission rate limit that prevents a single IP
+        address from submitting more than a configured number of responses.
+
+    - term: Spam Filter
+      definition: >-
+        An optional AI-based mechanism that evaluates submission content and
+        automatically categorizes suspected spam submissions separately from
+        legitimate inbox entries.
+
+    - term: Embed
+      definition: >-
+        The ability to display a HeyForm form within a third-party website
+        using the JavaScript embed library (@heyform-inc/embed) or an iframe,
+        without requiring respondents to navigate to the HeyForm domain.
+
+    - term: Theme
+      definition: >-
+        Visual customization settings applied to a form controlling fonts,
+        background colors, button colors, question text color, and answer
+        text color.
+
+    - term: Archive
+      definition: >-
+        Moving a form to an archived state while retaining it (as opposed to
+        trash). Archived forms are not publicly accessible but their data
+        is preserved.
+
+    - term: Partial Submission
+      definition: >-
+        A submission where the respondent did not complete all required fields,
+        allowed when forms are configured with allowPartialSubmission enabled.
+
+    - term: Payment Field
+      definition: >-
+        A special field kind that collects payment details and initiates a
+        Stripe payment intent. Requires Stripe to be connected to the workspace.
+
+    - term: Stripe Account
+      definition: >-
+        A connected Stripe account linked to a HeyForm workspace that enables
+        payment collection through payment-type form fields.
+
+    - term: Session Cookie
+      definition: >-
+        An HTTP-only cookie (heyform_sid) set on successful login or OAuth
+        callback that authenticates subsequent GraphQL and REST API requests.

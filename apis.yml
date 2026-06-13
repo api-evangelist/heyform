@@ -49,6 +49,8 @@ apis:
         url: https://docs.heyform.net
       - type: Webhook
         url: https://docs.heyform.net/integrations/webhook
+      - type: OpenAPI
+        url: openapi/heyform-heyform-api-openapi.yml
 
 common:
   - type: Website

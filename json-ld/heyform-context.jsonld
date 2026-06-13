@@ -1,0 +1,270 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "heyform": "https://heyform.net/vocab#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "Form": "heyform:Form",
+    "FormField": "heyform:FormField",
+    "Submission": "heyform:Submission",
+    "Answer": "heyform:Answer",
+    "HiddenField": "heyform:HiddenField",
+    "Variable": "heyform:Variable",
+    "FormLogic": "heyform:FormLogic",
+    "FormSettings": "heyform:FormSettings",
+    "FormTheme": "heyform:FormTheme",
+    "Workspace": "heyform:Workspace",
+    "Project": "heyform:Project",
+    "Integration": "heyform:Integration",
+    "WebhookPayload": "heyform:WebhookPayload",
+    "BrandKit": "heyform:BrandKit",
+
+    "id": "@id",
+    "type": "@type",
+
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "schema:description",
+      "@type": "xsd:string"
+    },
+    "createdAt": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+    "updatedAt": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    },
+
+    "formId": {
+      "@id": "heyform:formId",
+      "@type": "xsd:string"
+    },
+    "formName": {
+      "@id": "heyform:formName",
+      "@type": "xsd:string"
+    },
+    "teamId": {
+      "@id": "heyform:teamId",
+      "@type": "xsd:string"
+    },
+    "memberId": {
+      "@id": "heyform:memberId",
+      "@type": "xsd:string"
+    },
+    "projectId": {
+      "@id": "heyform:projectId",
+      "@type": "xsd:string"
+    },
+    "fields": {
+      "@id": "heyform:fields",
+      "@container": "@list"
+    },
+    "answers": {
+      "@id": "heyform:answers",
+      "@container": "@list"
+    },
+    "hiddenFields": {
+      "@id": "heyform:hiddenFields",
+      "@container": "@list"
+    },
+    "variables": {
+      "@id": "heyform:variables",
+      "@container": "@list"
+    },
+    "logics": {
+      "@id": "heyform:logics",
+      "@container": "@list"
+    },
+    "settings": {
+      "@id": "heyform:settings"
+    },
+    "theme": {
+      "@id": "heyform:theme"
+    },
+
+    "kind": {
+      "@id": "heyform:kind",
+      "@type": "xsd:string"
+    },
+    "title": {
+      "@id": "heyform:title",
+      "@type": "xsd:string"
+    },
+    "validations": {
+      "@id": "heyform:validations"
+    },
+    "properties": {
+      "@id": "heyform:properties"
+    },
+    "layout": {
+      "@id": "heyform:layout"
+    },
+    "choices": {
+      "@id": "heyform:choices",
+      "@container": "@list"
+    },
+    "label": {
+      "@id": "heyform:label",
+      "@type": "xsd:string"
+    },
+    "value": {
+      "@id": "heyform:value"
+    },
+
+    "category": {
+      "@id": "heyform:category",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "heyform:status",
+      "@type": "xsd:string"
+    },
+    "startAt": {
+      "@id": "heyform:startAt",
+      "@type": "xsd:long"
+    },
+    "endAt": {
+      "@id": "heyform:endAt",
+      "@type": "xsd:long"
+    },
+    "ip": {
+      "@id": "heyform:ipAddress",
+      "@type": "xsd:string"
+    },
+    "userAgent": {
+      "@id": "heyform:userAgent",
+      "@type": "xsd:string"
+    },
+
+    "active": {
+      "@id": "heyform:active",
+      "@type": "xsd:boolean"
+    },
+    "requirePassword": {
+      "@id": "heyform:requirePassword",
+      "@type": "xsd:boolean"
+    },
+    "captchaKind": {
+      "@id": "heyform:captchaKind",
+      "@type": "xsd:string"
+    },
+    "filterSpam": {
+      "@id": "heyform:filterSpam",
+      "@type": "xsd:boolean"
+    },
+    "allowArchive": {
+      "@id": "heyform:allowArchive",
+      "@type": "xsd:boolean"
+    },
+    "enableQuotaLimit": {
+      "@id": "heyform:enableQuotaLimit",
+      "@type": "xsd:boolean"
+    },
+    "quotaLimit": {
+      "@id": "heyform:quotaLimit",
+      "@type": "xsd:integer"
+    },
+    "enableIpLimit": {
+      "@id": "heyform:enableIpLimit",
+      "@type": "xsd:boolean"
+    },
+    "ipLimitCount": {
+      "@id": "heyform:ipLimitCount",
+      "@type": "xsd:integer"
+    },
+    "suspended": {
+      "@id": "heyform:suspended",
+      "@type": "xsd:boolean"
+    },
+
+    "fontFamily": {
+      "@id": "heyform:fontFamily",
+      "@type": "xsd:string"
+    },
+    "buttonBackground": {
+      "@id": "heyform:buttonBackground",
+      "@type": "xsd:string"
+    },
+    "buttonText": {
+      "@id": "heyform:buttonText",
+      "@type": "xsd:string"
+    },
+    "questionText": {
+      "@id": "heyform:questionText",
+      "@type": "xsd:string"
+    },
+    "answerText": {
+      "@id": "heyform:answerText",
+      "@type": "xsd:string"
+    },
+    "backgroundColor": {
+      "@id": "heyform:backgroundColor",
+      "@type": "xsd:string"
+    },
+
+    "url": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+    "email": {
+      "@id": "schema:email",
+      "@type": "xsd:string"
+    },
+    "filename": {
+      "@id": "heyform:filename",
+      "@type": "xsd:string"
+    },
+    "size": {
+      "@id": "schema:contentSize",
+      "@type": "xsd:long"
+    },
+
+    "apiURL": {
+      "@id": "heyform:apiURL",
+      "@type": "@id"
+    },
+    "graphqlURL": {
+      "@id": "heyform:graphqlURL",
+      "@type": "@id"
+    },
+    "webhookURL": {
+      "@id": "heyform:webhookURL",
+      "@type": "@id"
+    },
+    "documentationURL": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+
+    "Provider": {
+      "@id": "heyform:Provider",
+      "@context": {
+        "name": "schema:name",
+        "description": "schema:description",
+        "url": "schema:url",
+        "apiURL": "heyform:apiURL",
+        "graphqlURL": "heyform:graphqlURL",
+        "documentationURL": "schema:url"
+      }
+    }
+  },
+
+  "@graph": [
+    {
+      "@id": "https://heyform.net",
+      "@type": "heyform:Provider",
+      "name": "HeyForm",
+      "description": "Open-source conversational form builder with REST and GraphQL APIs, webhooks, and 30+ integrations.",
+      "url": "https://heyform.net",
+      "apiURL": "https://api.heyform.net",
+      "graphqlURL": "https://api.heyform.net/graphql",
+      "webhookURL": "https://docs.heyform.net/integrations/webhook",
+      "documentationURL": "https://docs.heyform.net"
+    }
+  ]
+}

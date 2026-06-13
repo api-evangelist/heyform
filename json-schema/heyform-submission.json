@@ -1,0 +1,160 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/heyform/json-schema/heyform-submission.json",
+  "title": "HeyForm Submission",
+  "description": "Schema for a HeyForm form submission, including respondent answers, hidden fields, and calculated variables.",
+  "type": "object",
+  "required": ["id", "formId", "answers"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique submission identifier.",
+      "example": "sub_abc123"
+    },
+    "formId": {
+      "type": "string",
+      "description": "Identifier of the form this submission belongs to."
+    },
+    "formName": {
+      "type": "string",
+      "description": "Display name of the form at the time of submission."
+    },
+    "teamId": {
+      "type": "string",
+      "description": "Identifier of the workspace that owns the form."
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable title for the submission (typically the form name)."
+    },
+    "category": {
+      "type": "string",
+      "description": "Inbox category for the submission.",
+      "enum": ["inbox", "spam", "archived"]
+    },
+    "status": {
+      "type": "string",
+      "description": "Whether the submission data is stored on the server.",
+      "enum": ["public", "private"]
+    },
+    "answers": {
+      "type": "array",
+      "description": "Array of respondent answers, one per answered field.",
+      "items": {
+        "$ref": "#/definitions/SubmissionAnswer"
+      }
+    },
+    "hiddenFields": {
+      "type": "array",
+      "description": "Pre-populated hidden field values included in the submission.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "value": { "type": "string" }
+        }
+      }
+    },
+    "variables": {
+      "type": "array",
+      "description": "Calculated variable values at the time of submission (e.g. quiz scores).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "kind": { "type": "string", "enum": ["number", "text"] },
+          "value": {}
+        }
+      }
+    },
+    "ip": {
+      "type": "string",
+      "description": "IP address of the respondent.",
+      "example": "203.0.113.42"
+    },
+    "userAgent": {
+      "type": "string",
+      "description": "User-agent string of the respondent's browser."
+    },
+    "startAt": {
+      "type": "integer",
+      "description": "Unix timestamp when the respondent opened the form."
+    },
+    "endAt": {
+      "type": "integer",
+      "description": "Unix timestamp when the respondent submitted the form."
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 creation timestamp."
+    }
+  },
+  "definitions": {
+    "SubmissionAnswer": {
+      "type": "object",
+      "required": ["id"],
+      "description": "A single answer within a submission.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The field identifier this answer corresponds to."
+        },
+        "title": {
+          "type": "string",
+          "description": "The question text of the field at the time of submission."
+        },
+        "kind": {
+          "type": "string",
+          "description": "Field type (see FormField.kind for possible values).",
+          "enum": [
+            "short_text", "long_text", "multiple_choice", "picture_choice",
+            "yes_no", "rating", "opinion_scale", "date", "time", "number",
+            "email", "url", "phone_number", "file_upload", "payment", "signature"
+          ]
+        },
+        "value": {
+          "description": "The respondent's answer. Type depends on field kind.",
+          "oneOf": [
+            {
+              "title": "Text answer (short_text, long_text, email, url, phone_number, date, time)",
+              "type": "string"
+            },
+            {
+              "title": "Numeric answer (number, rating, opinion_scale)",
+              "type": "number"
+            },
+            {
+              "title": "Boolean answer (yes_no)",
+              "type": "boolean"
+            },
+            {
+              "title": "Multiple selection answer (multiple_choice, picture_choice)",
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            {
+              "title": "Payment answer",
+              "type": "object",
+              "properties": {
+                "amount": { "type": "number" },
+                "currency": { "type": "string" },
+                "clientSecret": { "type": "string" }
+              }
+            },
+            {
+              "title": "File upload answer",
+              "type": "object",
+              "properties": {
+                "filename": { "type": "string" },
+                "url": { "type": "string", "format": "uri" },
+                "size": { "type": "integer" }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

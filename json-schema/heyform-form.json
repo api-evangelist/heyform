@@ -1,0 +1,332 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/heyform/json-schema/heyform-form.json",
+  "title": "HeyForm Form",
+  "description": "Schema for a HeyForm conversational form object including its fields, settings, logic, and metadata.",
+  "type": "object",
+  "required": ["id", "name", "teamId", "fields"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique form identifier (nanoid, 12 characters).",
+      "example": "abc123xyz789"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the form.",
+      "example": "Customer Feedback Survey"
+    },
+    "teamId": {
+      "type": "string",
+      "description": "Identifier of the workspace/team that owns this form."
+    },
+    "memberId": {
+      "type": "string",
+      "description": "Identifier of the team member who created the form."
+    },
+    "projectId": {
+      "type": "string",
+      "description": "Identifier of the project (folder) this form belongs to."
+    },
+    "fields": {
+      "type": "array",
+      "description": "Ordered list of form fields (questions, statements, etc.).",
+      "items": {
+        "$ref": "#/definitions/FormField"
+      }
+    },
+    "hiddenFields": {
+      "type": "array",
+      "description": "Hidden fields pre-populated via URL parameters or integrations.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" }
+        }
+      }
+    },
+    "logics": {
+      "type": "array",
+      "description": "Conditional logic rules that control field visibility and branching.",
+      "items": {
+        "$ref": "#/definitions/FormLogic"
+      }
+    },
+    "variables": {
+      "type": "array",
+      "description": "Calculated variables (e.g. score accumulators) used in logic and thank-you pages.",
+      "items": {
+        "$ref": "#/definitions/FormVariable"
+      }
+    },
+    "settings": {
+      "$ref": "#/definitions/FormSettings"
+    },
+    "theme": {
+      "$ref": "#/definitions/FormTheme"
+    },
+    "suspended": {
+      "type": "boolean",
+      "description": "Whether the form has been suspended by the platform."
+    },
+    "retentionAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when archived/trashed form will be permanently deleted."
+    },
+    "fieldsUpdatedAt": {
+      "type": "integer",
+      "description": "Unix timestamp of the last fields update (used for cache busting)."
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 creation timestamp."
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 last-updated timestamp."
+    }
+  },
+  "definitions": {
+    "FormField": {
+      "type": "object",
+      "required": ["id", "kind"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique field identifier within the form."
+        },
+        "title": {
+          "description": "Question or label text (rich text, stored as array of paragraphs or plain string).",
+          "oneOf": [
+            { "type": "string" },
+            { "type": "array", "items": { "type": "string" } }
+          ]
+        },
+        "description": {
+          "description": "Helper text shown below the question.",
+          "oneOf": [
+            { "type": "string" },
+            { "type": "array", "items": { "type": "string" } }
+          ]
+        },
+        "kind": {
+          "type": "string",
+          "description": "Field type determining the input widget and answer format.",
+          "enum": [
+            "short_text",
+            "long_text",
+            "multiple_choice",
+            "picture_choice",
+            "yes_no",
+            "rating",
+            "opinion_scale",
+            "date",
+            "time",
+            "number",
+            "email",
+            "url",
+            "phone_number",
+            "file_upload",
+            "payment",
+            "signature",
+            "thank_you",
+            "statement",
+            "welcome",
+            "group"
+          ]
+        },
+        "validations": {
+          "type": "object",
+          "description": "Validation rules for the field.",
+          "properties": {
+            "required": {
+              "type": "boolean",
+              "description": "Whether the respondent must provide an answer."
+            },
+            "min": {
+              "type": "number",
+              "description": "Minimum numeric value or selection count."
+            },
+            "max": {
+              "type": "number",
+              "description": "Maximum numeric value or selection count."
+            }
+          }
+        },
+        "properties": {
+          "type": "object",
+          "description": "Field-type-specific configuration (e.g. choices for multiple_choice).",
+          "properties": {
+            "choices": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": { "type": "string" },
+                  "label": { "type": "string" },
+                  "image": { "type": "string", "format": "uri" }
+                }
+              }
+            },
+            "allowMultiple": { "type": "boolean" },
+            "randomize": { "type": "boolean" },
+            "steps": { "type": "integer" },
+            "shape": { "type": "string", "enum": ["star", "heart", "thumb"] }
+          }
+        },
+        "layout": {
+          "type": "object",
+          "description": "Visual layout configuration for the field card.",
+          "properties": {
+            "mediaType": {
+              "type": "string",
+              "enum": ["image", "video"]
+            },
+            "mediaUrl": {
+              "type": "string",
+              "format": "uri"
+            },
+            "align": {
+              "type": "string",
+              "enum": ["split_left", "split_right", "float_left", "float_right", "inline"]
+            },
+            "brightness": {
+              "type": "number",
+              "minimum": -100,
+              "maximum": 100
+            }
+          }
+        }
+      }
+    },
+    "FormLogic": {
+      "type": "object",
+      "description": "A conditional logic rule that evaluates field answers and jumps to a target.",
+      "properties": {
+        "id": { "type": "string" },
+        "fieldId": {
+          "type": "string",
+          "description": "The field this logic rule is attached to."
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "fieldId": { "type": "string" },
+              "comparison": {
+                "type": "string",
+                "enum": ["is", "is_not", "contains", "not_contains", "starts_with",
+                         "ends_with", "is_empty", "is_not_empty", "greater_than",
+                         "less_than", "greater_equal", "less_equal"]
+              },
+              "value": {}
+            }
+          }
+        },
+        "operator": {
+          "type": "string",
+          "enum": ["and", "or"]
+        },
+        "action": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "enum": ["navigate", "calculator", "required"]
+            },
+            "fieldId": { "type": "string" },
+            "value": {}
+          }
+        }
+      }
+    },
+    "FormVariable": {
+      "type": "object",
+      "description": "A variable that can accumulate values or store calculations across submissions.",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "kind": {
+          "type": "string",
+          "enum": ["number", "text"]
+        },
+        "value": {}
+      }
+    },
+    "FormSettings": {
+      "type": "object",
+      "description": "Form behaviour and access control settings.",
+      "properties": {
+        "active": {
+          "type": "boolean",
+          "description": "Whether the form is published and accepting responses."
+        },
+        "requirePassword": {
+          "type": "boolean",
+          "description": "Whether respondents must enter a password to access the form."
+        },
+        "password": {
+          "type": "string",
+          "description": "Password string (only stored server-side, never returned in public API)."
+        },
+        "captchaKind": {
+          "type": "string",
+          "enum": ["none", "google_recaptcha_v3", "geetest"],
+          "description": "Anti-bot captcha mechanism."
+        },
+        "filterSpam": {
+          "type": "boolean",
+          "description": "Whether AI-based spam filtering is enabled."
+        },
+        "allowArchive": {
+          "type": "boolean",
+          "description": "Whether submitted responses are stored (archived) on the server."
+        },
+        "enableQuotaLimit": {
+          "type": "boolean",
+          "description": "Whether a maximum submission count limit is enforced."
+        },
+        "quotaLimit": {
+          "type": "integer",
+          "description": "Maximum number of submissions allowed when enableQuotaLimit is true."
+        },
+        "enableIpLimit": {
+          "type": "boolean",
+          "description": "Whether per-IP submission rate limiting is enabled."
+        },
+        "ipLimitCount": {
+          "type": "integer",
+          "description": "Maximum submissions per unique IP when enableIpLimit is true."
+        },
+        "enableExpirationDate": {
+          "type": "boolean",
+          "description": "Whether the form automatically closes after a certain date."
+        },
+        "expirationDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date and time after which the form stops accepting responses."
+        }
+      }
+    },
+    "FormTheme": {
+      "type": "object",
+      "description": "Visual theming options for the form.",
+      "properties": {
+        "fontFamily": { "type": "string" },
+        "screenBackground": { "type": "string" },
+        "buttonBackground": { "type": "string" },
+        "buttonText": { "type": "string" },
+        "questionText": { "type": "string" },
+        "answerText": { "type": "string" },
+        "backgroundColor": { "type": "string" }
+      }
+    }
+  }
+}

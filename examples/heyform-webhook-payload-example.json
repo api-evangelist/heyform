@@ -1,0 +1,80 @@
+{
+  "id": "sub_5d8f2a1b3c",
+  "formId": "form_abc123xyz",
+  "formName": "Customer Feedback Survey",
+  "fields": [
+    {
+      "id": "field_001",
+      "title": "What is your name?",
+      "kind": "short_text",
+      "validations": { "required": true }
+    },
+    {
+      "id": "field_002",
+      "title": "How did you hear about us?",
+      "kind": "multiple_choice",
+      "properties": {
+        "choices": [
+          { "id": "c1", "label": "Social media" },
+          { "id": "c2", "label": "Search engine" },
+          { "id": "c3", "label": "Friend or colleague" },
+          { "id": "c4", "label": "Other" }
+        ],
+        "allowMultiple": false
+      }
+    },
+    {
+      "id": "field_003",
+      "title": "How would you rate our service?",
+      "kind": "rating",
+      "properties": { "steps": 5, "shape": "star" },
+      "validations": { "required": true }
+    },
+    {
+      "id": "field_004",
+      "title": "Any additional comments?",
+      "kind": "long_text",
+      "validations": { "required": false }
+    }
+  ],
+  "answers": [
+    {
+      "id": "field_001",
+      "title": "What is your name?",
+      "kind": "short_text",
+      "value": "Jane Doe"
+    },
+    {
+      "id": "field_002",
+      "title": "How did you hear about us?",
+      "kind": "multiple_choice",
+      "value": ["Friend or colleague"]
+    },
+    {
+      "id": "field_003",
+      "title": "How would you rate our service?",
+      "kind": "rating",
+      "value": 5
+    },
+    {
+      "id": "field_004",
+      "title": "Any additional comments?",
+      "kind": "long_text",
+      "value": "The form was really easy to fill out!"
+    }
+  ],
+  "hiddenFields": [
+    {
+      "id": "source",
+      "value": "email-campaign-june"
+    }
+  ],
+  "variables": [
+    {
+      "id": "var_score",
+      "name": "Total Score",
+      "kind": "number",
+      "value": 5
+    }
+  ]
+}

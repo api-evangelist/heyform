@@ -1,0 +1,37 @@
+{
+  "_comment": "Example GraphQL mutation to submit answers to a HeyForm form. POST to /graphql.",
+  "request": {
+    "method": "POST",
+    "url": "https://api.heyform.net/graphql",
+    "headers": {
+      "Content-Type": "application/json",
+      "Cookie": "heyform_sid=<session-cookie-if-required>"
+    },
+    "body": {
+      "query": "mutation completeSubmission($input: CompleteSubmissionInput!) { completeSubmission(input: $input) { clientSecret } }",
+      "variables": {
+        "input": {
+          "formId": "form_abc123xyz",
+          "openToken": "eyJhbGciOiJBMjU2S1ciLCJlbmMiOiJBMjU2R0NNIn0...",
+          "answers": [
+            { "id": "field_001", "value": "Jane Doe" },
+            { "id": "field_002", "value": ["Friend or colleague"] },
+            { "id": "field_003", "value": 5 },
+            { "id": "field_004", "value": "Great experience!" }
+          ],
+          "hiddenFields": [
+            { "id": "source", "value": "email-campaign-june" }
+          ]
+        }
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "data": {
+        "completeSubmission": {}
+      }
+    }
+  }
+}
