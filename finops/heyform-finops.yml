@@ -1,0 +1,149 @@
+name: HeyForm FinOps
+description: >-
+  FOCUS-aligned FinOps profile for HeyForm cloud and self-hosted deployments.
+  Cost drivers are monthly response volume, storage consumption, workspace
+  member seats, and—for self-hosted instances—underlying infrastructure
+  (compute, MongoDB, Redis, SMTP relay). Stripe payment forms on the Free,
+  Basic, and Premium plans incur an undisclosed payment commission; the
+  Business plan removes this fee.
+specificationVersion: '1.0'
+focusVersion: '1.0'
+url: https://heyform.net/pricing
+
+provider: HeyForm
+providerURL: https://heyform.net
+
+billingModels:
+  - name: Subscription (Cloud)
+    description: >-
+      Monthly subscription billed per workspace. Plan tier is selected based on
+      expected monthly response volume. Upgrades and downgrades take effect at
+      the next billing cycle.
+    type: subscription
+    billingPeriod: monthly
+    currency: USD
+
+  - name: Custom Enterprise
+    description: >-
+      Annual or multi-year contract negotiated directly with HeyForm for
+      Enterprise customers with custom response volumes, SLAs, and dedicated
+      support.
+    type: custom
+    billingPeriod: annual
+    currency: USD
+    contactURL: https://heyform.net/pricing
+
+  - name: Self-Hosted (Infrastructure Cost)
+    description: >-
+      No HeyForm licence fee. Costs are borne by the operator: cloud compute,
+      MongoDB hosting (e.g., MongoDB Atlas M10+), Redis instance, object
+      storage for file uploads, and SMTP relay.
+    type: infrastructure
+    currency: USD
+
+costDrivers:
+  - name: Monthly Responses
+    description: >-
+      Primary cost driver for cloud plans. Each plan tier grants a fixed monthly
+      response allowance; exceeding it requires an upgrade to the next plan.
+    unit: responses
+    tiers:
+      - plan: Free
+        limit: 250
+        monthlyCost: 0
+        currency: USD
+      - plan: Basic
+        limit: 5000
+        monthlyCost: 15
+        currency: USD
+      - plan: Premium
+        limit: 20000
+        monthlyCost: 24
+        currency: USD
+      - plan: Business
+        limit: 150000
+        monthlyCost: 40
+        currency: USD
+
+  - name: Storage
+    description: >-
+      File upload and form asset storage included with each plan tier. Exceeding
+      the storage limit may require a plan upgrade.
+    unit: GB
+    tiers:
+      - plan: Free
+        limit: 0.05
+        currency: USD
+      - plan: Basic
+        limit: 10
+        currency: USD
+      - plan: Premium
+        limit: 20
+        currency: USD
+      - plan: Business
+        limit: 50
+        currency: USD
+
+  - name: Workspace Members
+    description: >-
+      Seat limits per workspace on paid plans. Free and Basic plans do not
+      support additional members. Premium allows up to 3; Business up to 10.
+    unit: seats
+    tiers:
+      - plan: Free
+        limit: 1
+      - plan: Basic
+        limit: 1
+      - plan: Premium
+        limit: 3
+      - plan: Business
+        limit: 10
+
+  - name: Payment Commission (Stripe)
+    description: >-
+      HeyForm applies an undisclosed commission on payments collected via Stripe
+      on Free, Basic, and Premium plans. The Business plan removes this
+      additional commission.
+    unit: percentage
+    tiers:
+      - plan: Free
+        commissionApplies: true
+      - plan: Basic
+        commissionApplies: true
+      - plan: Premium
+        commissionApplies: true
+      - plan: Business
+        commissionApplies: false
+
+optimizationRecommendations:
+  - name: Right-size to response volume
+    description: >-
+      Monitor actual monthly response consumption. If consistently below 250,
+      the Free plan is sufficient. Move to Basic only when approaching the Free
+      limit to avoid unnecessary spend.
+
+  - name: Use self-hosting to eliminate per-response cost
+    description: >-
+      For high-volume deployments (>150k responses/month), self-hosting on
+      commodity cloud infrastructure (e.g., $20–$60/month VPS + MongoDB Atlas
+      M10) can be significantly cheaper than the Business plan or Enterprise
+      contract.
+
+  - name: Avoid Stripe commission by upgrading to Business
+    description: >-
+      If Stripe payment forms are in use, calculate whether the additional
+      HeyForm Stripe commission on Free/Basic/Premium plans exceeds the $16/mo
+      cost difference between Premium ($24) and Business ($40). If so, upgrade
+      to remove the commission.
+
+  - name: Consolidate workspaces to reduce seats
+    description: >-
+      Team member seat limits are per workspace. Consolidating forms into fewer
+      workspaces may allow a lower-tier plan while still accommodating the same
+      number of collaborators.
+
+  - name: Monitor storage against plan limits
+    description: >-
+      File upload storage is finite on all plans. Periodically audit stored
+      files and delete obsolete uploads to avoid plan upgrades driven purely by
+      storage rather than response volume.

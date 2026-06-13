@@ -1,0 +1,109 @@
+name: HeyForm Rate Limits
+description: >-
+  HeyForm does not publish explicit per-minute or per-hour REST API rate limits
+  in its public documentation as of June 2026. The primary consumption
+  constraints are monthly response quotas tied to the subscription plan.
+  Self-hosted deployments expose internal Bull job-queue timeouts that operators
+  can tune. The webhook endpoint must respond within 10 seconds to be counted
+  as successful. The following entries describe the known limits drawn from
+  official documentation and environment-variable defaults.
+specificationVersion: '0.1'
+url: https://docs.heyform.net/open-source/configuration/environment-variables
+
+rateLimits:
+  - name: Monthly Response Quota — Free
+    description: >-
+      Cloud-hosted Free plan accounts are limited to 250 form submissions per
+      calendar month across all forms in the workspace.
+    limit: 250
+    period: monthly
+    scope: workspace
+    plan: Free
+
+  - name: Monthly Response Quota — Basic
+    description: >-
+      Cloud-hosted Basic plan accounts may collect up to 5,000 form submissions
+      per calendar month.
+    limit: 5000
+    period: monthly
+    scope: workspace
+    plan: Basic
+
+  - name: Monthly Response Quota — Premium
+    description: >-
+      Cloud-hosted Premium plan accounts may collect up to 20,000 form
+      submissions per calendar month.
+    limit: 20000
+    period: monthly
+    scope: workspace
+    plan: Premium
+
+  - name: Monthly Response Quota — Business
+    description: >-
+      Cloud-hosted Business plan accounts may collect up to 150,000 form
+      submissions per calendar month.
+    limit: 150000
+    period: monthly
+    scope: workspace
+    plan: Business
+
+  - name: Webhook Response Timeout
+    description: >-
+      When HeyForm delivers a webhook POST request to an endpoint, the receiving
+      server must return a 2xx HTTP status code within 10 seconds. Responses
+      that exceed this window are treated as failed deliveries.
+    limit: 10
+    unit: seconds
+    scope: per-webhook-delivery
+    documentationURL: https://docs.heyform.net/integrations/webhook
+
+  - name: Verification Code Attempts
+    description: >-
+      Self-hosted instances enforce a maximum of 5 verification-code submission
+      attempts before the code is invalidated. Configurable via the
+      VERIFICATION_CODE_LIMIT environment variable.
+    limit: 5
+    unit: attempts
+    scope: per-verification-session
+    defaultValue: 5
+    envVar: VERIFICATION_CODE_LIMIT
+
+  - name: Verification Code Expiry
+    description: >-
+      Verification codes issued during email authentication expire after 10
+      minutes by default. Configurable via VERIFICATION_CODE_EXPIRE.
+    limit: 10
+    unit: minutes
+    scope: per-verification-code
+    defaultValue: 10
+    envVar: VERIFICATION_CODE_EXPIRE
+
+  - name: Bull Job Attempts
+    description: >-
+      Background jobs (e.g., email sending, integration sync) are retried up to
+      3 times on failure. Configurable via BULL_JOB_ATTEMPTS.
+    limit: 3
+    unit: attempts
+    scope: per-job
+    defaultValue: 3
+    envVar: BULL_JOB_ATTEMPTS
+
+  - name: Bull Job Timeout
+    description: >-
+      Individual background jobs time out after 60,000 ms (1 minute) by
+      default. Configurable via BULL_JOB_TIMEOUT.
+    limit: 60000
+    unit: milliseconds
+    scope: per-job
+    defaultValue: 60000
+    envVar: BULL_JOB_TIMEOUT
+
+  - name: Bull Job Backoff Delay
+    description: >-
+      On job failure, the retry back-off delay defaults to 3,000 ms between
+      attempts. Configurable via BULL_JOB_BACKOFF_DELAY.
+    limit: 3000
+    unit: milliseconds
+    scope: per-job-retry
+    defaultValue: 3000
+    envVar: BULL_JOB_BACKOFF_DELAY

@@ -1,0 +1,126 @@
+name: HeyForm Plans and Pricing
+description: >-
+  HeyForm offers a free tier and three paid cloud plans based on monthly
+  response volume, storage, and team collaboration features. A self-hosted
+  open-source (AGPL-3.0) option is also available at no cost for organisations
+  that deploy on their own infrastructure.
+specificationVersion: '0.1'
+url: https://heyform.net/pricing
+
+plans:
+  - name: Free
+    description: >-
+      No-cost cloud plan for individuals getting started with conversational
+      forms. Includes core form-building features with limited monthly responses
+      and storage.
+    price: 0
+    priceCurrency: USD
+    billingPeriod: monthly
+    features:
+      - Unlimited forms
+      - 250 responses per month
+      - 50 MB storage
+      - Basic form analytics
+      - Webhook integration
+      - Conditional logic
+      - 30+ integrations (Zapier, Slack, Google Sheets, etc.)
+    limitations:
+      - HeyForm branding on forms
+      - No custom domain
+      - No custom CSS
+      - No team members
+
+  - name: Basic
+    description: >-
+      Entry-level paid plan for small businesses that need higher response
+      volumes, additional storage, and form report features.
+    price: 15
+    priceCurrency: USD
+    billingPeriod: monthly
+    features:
+      - Unlimited forms
+      - 5,000 responses per month
+      - 10 GB storage
+      - Form reports and analytics
+      - Theme customization
+      - Redirect on completion
+      - All Free plan features
+    limitations:
+      - HeyForm branding on forms
+      - No custom domain
+      - No custom CSS
+      - No team members
+
+  - name: Premium
+    description: >-
+      Most popular plan for growing teams that need custom branding, a custom
+      domain, collaborative workspaces, and higher response limits.
+    price: 24
+    priceCurrency: USD
+    billingPeriod: monthly
+    features:
+      - Unlimited forms
+      - 20,000 responses per month
+      - 20 GB storage
+      - Custom domain
+      - Custom CSS
+      - Remove HeyForm branding
+      - Invite up to 3 workspace members
+      - All Basic plan features
+    limitations:
+      - Up to 3 workspace members
+      - Payment commission on Stripe-connected forms
+
+  - name: Business
+    description: >-
+      High-volume plan for established businesses with large response needs,
+      larger teams, and priority support.
+    price: 40
+    priceCurrency: USD
+    billingPeriod: monthly
+    features:
+      - Unlimited forms
+      - 150,000 responses per month
+      - 50 GB storage
+      - Invite up to 10 workspace members
+      - No payment commission on Stripe forms
+      - Unlimited file uploads
+      - Priority support
+      - All Premium plan features
+    limitations:
+      - Up to 10 workspace members
+
+  - name: Enterprise
+    description: >-
+      Custom plan for large organisations requiring dedicated support, custom
+      response volumes, SLA agreements, and tailored onboarding.
+    price: custom
+    priceCurrency: USD
+    billingPeriod: monthly
+    contactURL: https://heyform.net/pricing
+    features:
+      - Custom response limits
+      - Dedicated customer support
+      - Custom storage allocation
+      - Custom team size
+      - SLA and custom contract terms
+      - Tailored onboarding
+
+  - name: Self-Hosted (Open Source)
+    description: >-
+      Deploy HeyForm on your own infrastructure using the AGPL-3.0 open-source
+      release. No per-response cost; operator bears infrastructure expenses.
+    price: 0
+    priceCurrency: USD
+    billingPeriod: one-time
+    licenseURL: https://github.com/heyform/heyform/blob/main/LICENSE
+    features:
+      - All core form-building features
+      - Unlimited responses (infrastructure-dependent)
+      - Self-managed MongoDB and Redis
+      - Configurable environment variables
+      - One-click deployment on Railway, Zeabur, Sealos, RepoCloud, Alibaba Cloud
+    limitations:
+      - Requires own server, MongoDB, Redis, and SMTP setup
+      - No managed support; community support via GitHub and Discord
+      - Some cloud-only integrations may require additional configuration

@@ -1,0 +1,79 @@
+aid: heyform
+name: HeyForm
+description: >-
+  HeyForm is an open-source conversational form builder that enables anyone to
+  create engaging forms, surveys, quizzes, and polls without coding. It provides
+  a REST API and webhook integrations for creating and managing forms,
+  collecting responses, configuring conditional logic, and embedding forms in
+  any web application. With 30+ integrations including Zapier, Slack, Google
+  Sheets, Airtable, HubSpot, and Stripe, HeyForm suits small businesses and
+  developers who want full data ownership. Licensed under AGPL-3.0, it can be
+  self-hosted or used via the managed cloud service.
+type: Index
+image: >-
+  https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/heyform/refs/heads/main/apis.yml
+created: '2026-06-13'
+modified: '2026-06-13'
+specificationVersion: '0.19'
+tags:
+  - Forms
+  - Surveys
+  - Quizzes
+  - Polls
+  - Conversational Forms
+  - Open Source
+  - Webhooks
+  - No-Code
+  - Form Builder
+  - Self-Hosted
+
+apis:
+  - aid: heyform:heyform-api
+    name: HeyForm API
+    description: >-
+      RESTful API for programmatically managing forms, submissions, webhooks,
+      and workspace resources. Supports creating and publishing forms,
+      retrieving response data, configuring integrations, and embedding forms
+      via a JavaScript embed library.
+    humanURL: https://docs.heyform.net
+    baseURL: https://api.heyform.net
+    tags:
+      - Forms
+      - Submissions
+      - Webhooks
+      - Integrations
+    properties:
+      - type: Documentation
+        url: https://docs.heyform.net
+      - type: Webhook
+        url: https://docs.heyform.net/integrations/webhook
+
+common:
+  - type: Website
+    url: https://heyform.net
+  - type: Documentation
+    url: https://docs.heyform.net
+  - type: GitHubOrg
+    url: https://github.com/heyform
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/heyform
+  - type: Blog
+    url: https://heyform.net/blog
+  - type: Pricing
+    url: https://heyform.net/pricing
+  - type: StatusPage
+    url: https://heyform.net
+  - type: X
+    url: https://x.com/heyform_net
+  - type: Plans
+    url: plans/heyform-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/heyform-rate-limits.yml
+  - type: FinOps
+    url: finops/heyform-finops.yml
+
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
