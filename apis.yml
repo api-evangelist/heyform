@@ -47,7 +47,7 @@ apis:
     properties:
       - type: Documentation
         url: https://docs.heyform.net
-      - type: Webhook
+      - type: Webhooks
         url: https://docs.heyform.net/integrations/webhook
       - type: OpenAPI
         url: openapi/heyform-heyform-api-openapi.yml

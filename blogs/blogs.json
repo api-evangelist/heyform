@@ -1,143 +1,21 @@
 {
-  "meta": {
-    "source": "https://heyform.net/blog",
-    "fetched": "2026-06-13",
-    "count": 25
-  },
-  "posts": [
-    {
-      "title": "Best Ways to Create Invitations Online for Events and Webinars",
-      "url": "https://heyform.net/blog/best-ways-to-create-invitations-online-for-events-and-webinars/",
-      "date": "2025-07-29"
-    },
-    {
-      "title": "How to Make a Job Application Form Online That Stands Out",
-      "url": "https://heyform.net/blog/how-to-make-a-job-application-form-online-that-stands-out/",
-      "date": "2025-07-28"
-    },
-    {
-      "title": "Top 7 Free Survey Creator Tools for 2025 (No Coding Needed)",
-      "url": "https://heyform.net/blog/top-7-free-survey-creator-tools-for-2025-no-coding-needed/",
-      "date": "2025-07-25"
-    },
-    {
-      "title": "Create an Online Poll in Minutes: A Beginner's Step-by-Step Guide",
-      "url": "https://heyform.net/blog/create-an-online-poll-in-minutes-a-beginners-step-by-step-guide/",
-      "date": "2025-07-18"
-    },
-    {
-      "title": "Why Online Forms Are the Future of Business Automation in 2025",
-      "url": "https://heyform.net/blog/why-online-forms-are-the-future-of-business-automation-in-2025/",
-      "date": "2025-07-14"
-    },
-    {
-      "title": "Common Mistakes to Avoid When Using Online Forms for Data Collection",
-      "url": "https://heyform.net/blog/common-mistakes-to-avoid-when-using-online-forms-for-data-collection-2/",
-      "date": "2025-07-12"
-    },
-    {
-      "title": "Online Forms Tips & Tricks: How to Get Better Responses Fast",
-      "url": "https://heyform.net/blog/online-forms-tips-tricks-how-to-get-better-responses-fast-2/",
-      "date": "2025-07-09"
-    },
-    {
-      "title": "10 Smart Ways Businesses Use Online Forms to Boost Productivity",
-      "url": "https://heyform.net/blog/10-smart-ways-businesses-use-online-forms-to-boost-productivity/",
-      "date": "2025-05-08"
-    },
-    {
-      "title": "Google Forms Alternatives: Top 5 Tools with Better Features in 2025",
-      "url": "https://heyform.net/blog/google-forms-alternatives-top-5-tools-with-better-features-in-2025/",
-      "date": "2025-05-05"
-    },
-    {
-      "title": "A Guide to Customizing Form Workflows with HeyForm's Conditional Logic",
-      "url": "https://heyform.net/blog/a-guide-to-customizing-form-workflows-with-heyforms-conditional-logic/",
-      "date": "2025-05-01"
-    },
-    {
-      "title": "How Real Estate Agents Can Use HeyForm to Capture Leads?",
-      "url": "https://heyform.net/blog/how-real-estate-agents-can-use-heyform-to-capture-leads/",
-      "date": "2025-04-29"
-    },
-    {
-      "title": "Why Every Small Business Needs a Contact Form?",
-      "url": "https://heyform.net/blog/why-every-small-business-needs-a-contact-form/",
-      "date": "2025-04-24"
-    },
-    {
-      "title": "The Ultimate Guide to HeyForm-Zapier Integration: Automate Lead Generation in 2025",
-      "url": "https://heyform.net/blog/the-ultimate-guide-to-heyform-zapier-integration-automate-lead-generation-in-2025/",
-      "date": "2025-04-22"
-    },
-    {
-      "title": "The Ultimate Guide to School Consent Forms",
-      "url": "https://heyform.net/blog/the-ultimate-guide-to-school-consent-forms/",
-      "date": "2025-01-02"
-    },
-    {
-      "title": "Step-by-Step Guide to Creating Quizzes with Microsoft Forms",
-      "url": "https://heyform.net/blog/creating-quizzes-with-microsoft-forms/",
-      "date": "2024-12-23"
-    },
-    {
-      "title": "Empower Your Classroom: The Comprehensive Teacher Feedback Form Template",
-      "url": "https://heyform.net/blog/create-perfect-teacher-feedback-form/",
-      "date": "2024-12-23"
-    },
-    {
-      "title": "Best Practices for Handling Refund Requests",
-      "url": "https://heyform.net/blog/best-practices-for-handling-refund-requests/",
-      "date": "2024-12-23"
-    },
-    {
-      "title": "Best Feedback for Teachers: Empowering Educators Through Constructive Insights",
-      "url": "https://heyform.net/blog/teacher-feedback-examples-tools-best-practices/",
-      "date": "2024-12-23"
-    },
-    {
-      "title": "Revolutionize Your Member Onboarding Process with HeyForm's Joining Forms",
-      "url": "https://heyform.net/blog/member-onboarding-forms/",
-      "date": "2024-12-07"
-    },
-    {
-      "title": "How to Create a Physical Activity Questionnaire for Students",
-      "url": "https://heyform.net/blog/physical-activity-questionnaire-for-students/",
-      "date": "2024-12-07"
-    },
-    {
-      "title": "The Global and International Physical Activity Questionnaires (GPAQ)",
-      "url": "https://heyform.net/blog/global-and-international-physical-activity-questionnaires/",
-      "date": "2024-12-07"
-    },
-    {
-      "title": "Designing a Physical Activity Questionnaire for Adults",
-      "url": "https://heyform.net/blog/physical-activity-questionnaire-for-adults/",
-      "date": "2024-12-07"
-    },
-    {
-      "title": "Guide to Scoring Physical Activity Questionnaires",
-      "url": "https://heyform.net/blog/physical-activity-questionnaires/",
-      "date": "2024-12-07"
-    },
-    {
-      "title": "Questions To Include In A Physical Activity Questionnaire",
-      "url": "https://heyform.net/blog/physical-activity-questionnaire/",
-      "date": "2024-12-04"
-    },
-    {
-      "title": "New Hire Onboarding Surveys: Boost Employee Engagement and Retention",
-      "url": "https://heyform.net/blog/new-hire-onboarding-surveys/",
-      "date": "2024-12-02"
-    }
-  ],
   "repo": "heyform",
   "feeds": [
     {
+      "source": "https://heyform.net/blog/feed/",
+      "feed_url": "https://heyform.net/blog/feed/",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
       "source": "https://www.linkedin.com/company/heyform",
-      "error": "HTTPError"
+      "feed_url": "https://www.linkedin.com/company/heyform",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "post_count": 0,
-  "fetched": "2026-06-14T20:42:17Z"
+  "fetched": "2026-06-27T12:03:07Z",
+  "post_count": 0
 }
