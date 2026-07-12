@@ -53,6 +53,10 @@ apis:
         url: openapi/heyform-heyform-api-openapi.yml
 
 common:
+  - type: DomainSecurity
+    url: security/heyform-domain-security.yml
+  - type: Authentication
+    url: authentication/heyform-authentication.yml
   - type: Website
     url: https://heyform.net
   - type: Documentation

@@ -1,0 +1,17 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/heyform-heyform-api-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - cookie
+schemes:
+- name: cookieAuth
+  type: apiKey
+  in: cookie
+  parameter: heyform_sid
+  description: Session cookie set by the login mutation or OAuth callback. All authenticated
+    GraphQL mutations and the CSV export endpoint require this cookie.
+  sources:
+  - openapi/heyform-heyform-api-openapi.yml
