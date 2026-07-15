@@ -53,6 +53,8 @@ apis:
         url: openapi/heyform-heyform-api-openapi.yml
 
 common:
+  - type: AgenticAccess
+    url: agentic-access/heyform-agentic-access.yml
   - type: DomainSecurity
     url: security/heyform-domain-security.yml
   - type: Authentication
