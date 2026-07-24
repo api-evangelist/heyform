@@ -1,0 +1,102 @@
+openapi: 3.0.3
+info:
+  title: HeyForm Auth Upload API
+  description: HeyForm is an open-source conversational form builder providing REST and GraphQL endpoints for managing forms, submissions, workspaces, integrations, and webhooks. The primary data API uses GraphQL; this document covers the publicly accessible REST endpoints discovered in the open-source codebase.
+  version: 1.0.0
+  contact:
+    name: HeyForm Support
+    url: https://docs.heyform.net
+  license:
+    name: AGPL-3.0
+    url: https://github.com/heyform/heyform/blob/main/LICENSE
+servers:
+- url: https://api.heyform.net
+  description: HeyForm Cloud API
+- url: http://localhost:8000
+  description: Self-hosted HeyForm instance (default port)
+tags:
+- name: Upload
+  description: File upload
+paths:
+  /api/upload:
+    post:
+      operationId: uploadFile
+      summary: Upload a file
+      description: Uploads a file (image or document) to the HeyForm storage backend. Returns the URL at which the uploaded file can be accessed. SVG files are blocked for security reasons.
+      tags:
+      - Upload
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The file to upload.
+      responses:
+        '201':
+          description: File uploaded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadResult'
+              example:
+                filename: photo.jpg
+                url: https://heyform.net/static/upload/photo-abc123.jpg
+                size: 204800
+        '400':
+          $ref: '#/components/responses/BadRequest'
+components:
+  responses:
+    BadRequest:
+      description: Bad request — invalid input or business logic violation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            statusCode: 400
+            message: The form does not exist
+            error: Bad Request
+  schemas:
+    UploadResult:
+      type: object
+      description: Result of a successful file upload.
+      required:
+      - filename
+      - url
+      - size
+      properties:
+        filename:
+          type: string
+          description: Original filename of the uploaded file.
+        url:
+          type: string
+          format: uri
+          description: Publicly accessible URL of the uploaded file.
+        size:
+          type: integer
+          description: File size in bytes.
+    Error:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+        message:
+          type: string
+        error:
+          type: string
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: heyform_sid
+      description: Session cookie set by the login mutation or OAuth callback. All authenticated GraphQL mutations and the CSV export endpoint require this cookie.
+externalDocs:
+  description: HeyForm Documentation
+  url: https://docs.heyform.net

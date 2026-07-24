@@ -1,0 +1,95 @@
+openapi: 3.0.3
+info:
+  title: HeyForm Auth Submissions API
+  description: HeyForm is an open-source conversational form builder providing REST and GraphQL endpoints for managing forms, submissions, workspaces, integrations, and webhooks. The primary data API uses GraphQL; this document covers the publicly accessible REST endpoints discovered in the open-source codebase.
+  version: 1.0.0
+  contact:
+    name: HeyForm Support
+    url: https://docs.heyform.net
+  license:
+    name: AGPL-3.0
+    url: https://github.com/heyform/heyform/blob/main/LICENSE
+servers:
+- url: https://api.heyform.net
+  description: HeyForm Cloud API
+- url: http://localhost:8000
+  description: Self-hosted HeyForm instance (default port)
+tags:
+- name: Submissions
+  description: Export form submission data
+paths:
+  /api/export/submissions:
+    get:
+      operationId: exportSubmissions
+      summary: Export form submissions as CSV
+      description: Downloads all submissions for a given form as a CSV file. Requires authentication and the caller must own or have access to the specified form.
+      tags:
+      - Submissions
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: formId
+        in: query
+        required: true
+        description: The unique identifier of the form whose submissions to export.
+        schema:
+          type: string
+        example: abc123xyz
+      responses:
+        '200':
+          description: CSV file containing all form submissions
+          content:
+            text/csv:
+              schema:
+                type: string
+                format: binary
+          headers:
+            Content-Disposition:
+              schema:
+                type: string
+              example: attachment; filename="My%20Form-2026-06-13.csv"
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    BadRequest:
+      description: Bad request — invalid input or business logic violation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            statusCode: 400
+            message: The form does not exist
+            error: Bad Request
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            statusCode: 401
+            message: Unauthorized
+            error: Unauthorized
+  schemas:
+    Error:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+        message:
+          type: string
+        error:
+          type: string
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: heyform_sid
+      description: Session cookie set by the login mutation or OAuth callback. All authenticated GraphQL mutations and the CSV export endpoint require this cookie.
+externalDocs:
+  description: HeyForm Documentation
+  url: https://docs.heyform.net

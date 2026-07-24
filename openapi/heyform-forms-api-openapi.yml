@@ -1,0 +1,52 @@
+openapi: 3.0.3
+info:
+  title: HeyForm Auth Forms API
+  description: HeyForm is an open-source conversational form builder providing REST and GraphQL endpoints for managing forms, submissions, workspaces, integrations, and webhooks. The primary data API uses GraphQL; this document covers the publicly accessible REST endpoints discovered in the open-source codebase.
+  version: 1.0.0
+  contact:
+    name: HeyForm Support
+    url: https://docs.heyform.net
+  license:
+    name: AGPL-3.0
+    url: https://github.com/heyform/heyform/blob/main/LICENSE
+servers:
+- url: https://api.heyform.net
+  description: HeyForm Cloud API
+- url: http://localhost:8000
+  description: Self-hosted HeyForm instance (default port)
+tags:
+- name: Forms
+  description: Form rendering (public endpoint)
+paths:
+  /form/{formId}:
+    get:
+      operationId: renderForm
+      summary: Render a public form
+      description: Serves the HTML shell for a published form. This is the embeddable public-facing form page. The form data itself is loaded dynamically via the GraphQL endpoint.
+      tags:
+      - Forms
+      parameters:
+      - name: formId
+        in: path
+        required: true
+        description: The unique identifier of the form to render.
+        schema:
+          type: string
+        example: abc123xyz
+      responses:
+        '200':
+          description: HTML page containing the rendered form
+          content:
+            text/html:
+              schema:
+                type: string
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: heyform_sid
+      description: Session cookie set by the login mutation or OAuth callback. All authenticated GraphQL mutations and the CSV export endpoint require this cookie.
+externalDocs:
+  description: HeyForm Documentation
+  url: https://docs.heyform.net

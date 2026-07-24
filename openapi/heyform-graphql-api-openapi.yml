@@ -1,0 +1,133 @@
+openapi: 3.0.3
+info:
+  title: HeyForm Auth GraphQL API
+  description: HeyForm is an open-source conversational form builder providing REST and GraphQL endpoints for managing forms, submissions, workspaces, integrations, and webhooks. The primary data API uses GraphQL; this document covers the publicly accessible REST endpoints discovered in the open-source codebase.
+  version: 1.0.0
+  contact:
+    name: HeyForm Support
+    url: https://docs.heyform.net
+  license:
+    name: AGPL-3.0
+    url: https://github.com/heyform/heyform/blob/main/LICENSE
+servers:
+- url: https://api.heyform.net
+  description: HeyForm Cloud API
+- url: http://localhost:8000
+  description: Self-hosted HeyForm instance (default port)
+tags:
+- name: GraphQL
+  description: Primary data API (GraphQL over HTTP)
+paths:
+  /graphql:
+    post:
+      operationId: graphqlEndpoint
+      summary: GraphQL API endpoint
+      description: 'The primary HeyForm data API. All form management operations (create, update, delete, publish), user operations (login, sign-up, password reset), submission retrieval, project management, team management, integration configuration, and the public form open/submit flow are handled through this GraphQL endpoint. Authentication uses HTTP-only cookies set during login. Key mutations and queries include: login, signUp, createForm, updateFormSchemas, publishForm, deleteForm, openForm, completeSubmission, submissions, deleteSubmission, createProject, createTeam, updateIntegrationSettings.'
+      tags:
+      - GraphQL
+      security:
+      - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GraphQLRequest'
+            examples:
+              openForm:
+                summary: Open a published form (public)
+                value:
+                  query: "query openForm($input: OpenFormInput!) {\n  openForm(input: $input)\n}\n"
+                  variables:
+                    input:
+                      formId: abc123xyz
+              completeSubmission:
+                summary: Submit answers to a form (public)
+                value:
+                  query: "mutation completeSubmission($input: CompleteSubmissionInput!) {\n  completeSubmission(input: $input) {\n    clientSecret\n  }\n}\n"
+                  variables:
+                    input:
+                      formId: abc123xyz
+                      openToken: eyJ...
+                      answers:
+                      - id: field1
+                        value: Jane Doe
+              login:
+                summary: Authenticate with email and password
+                value:
+                  query: "query login($input: LoginInput!) {\n  login(input: $input)\n}\n"
+                  variables:
+                    input:
+                      email: user@example.com
+                      password: secret
+              createForm:
+                summary: Create a new form
+                value:
+                  query: "mutation createForm($input: CreateFormInput!) {\n  createForm(input: $input)\n}\n"
+                  variables:
+                    input:
+                      projectId: proj123
+                      name: Customer Feedback
+      responses:
+        '200':
+          description: GraphQL response (errors are returned inline per the GraphQL spec)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GraphQLResponse'
+components:
+  schemas:
+    GraphQLResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          description: The data returned by the GraphQL operation.
+          additionalProperties: true
+        errors:
+          type: array
+          description: Array of GraphQL errors, if any.
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+              locations:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    line:
+                      type: integer
+                    column:
+                      type: integer
+              path:
+                type: array
+                items: {}
+              extensions:
+                type: object
+                additionalProperties: true
+    GraphQLRequest:
+      type: object
+      required:
+      - query
+      properties:
+        query:
+          type: string
+          description: GraphQL query or mutation document.
+        variables:
+          type: object
+          description: Variable values for the query.
+          additionalProperties: true
+        operationName:
+          type: string
+          description: Name of the operation to execute (when the document contains multiple).
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: heyform_sid
+      description: Session cookie set by the login mutation or OAuth callback. All authenticated GraphQL mutations and the CSV export endpoint require this cookie.
+externalDocs:
+  description: HeyForm Documentation
+  url: https://docs.heyform.net

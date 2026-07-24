@@ -1,0 +1,84 @@
+openapi: 3.0.3
+info:
+  title: HeyForm Auth Config API
+  description: HeyForm is an open-source conversational form builder providing REST and GraphQL endpoints for managing forms, submissions, workspaces, integrations, and webhooks. The primary data API uses GraphQL; this document covers the publicly accessible REST endpoints discovered in the open-source codebase.
+  version: 1.0.0
+  contact:
+    name: HeyForm Support
+    url: https://docs.heyform.net
+  license:
+    name: AGPL-3.0
+    url: https://github.com/heyform/heyform/blob/main/LICENSE
+servers:
+- url: https://api.heyform.net
+  description: HeyForm Cloud API
+- url: http://localhost:8000
+  description: Self-hosted HeyForm instance (default port)
+tags:
+- name: Config
+  description: Runtime configuration
+paths:
+  /api/config:
+    get:
+      operationId: getConfig
+      summary: Get runtime configuration
+      description: Returns the public runtime configuration for the HeyForm application, including homepage URL, feature flags, and third-party integration keys.
+      tags:
+      - Config
+      responses:
+        '200':
+          description: Runtime configuration object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuntimeConfig'
+              example:
+                homepageURL: https://heyform.net
+                websiteURL: https://heyform.net
+                appDisableRegistration: false
+                cookieDomain: heyform.net
+                enableGoogleFonts: true
+                stripePublishableKey: pk_live_...
+                googleRecaptchaKey: 6Le...
+                verifyEmailResendCooldownSeconds: 60
+components:
+  schemas:
+    RuntimeConfig:
+      type: object
+      description: Public runtime configuration returned by /api/config.
+      properties:
+        homepageURL:
+          type: string
+          format: uri
+          description: Application homepage URL.
+        websiteURL:
+          type: string
+          format: uri
+          description: Website URL (may match homepageURL).
+        appDisableRegistration:
+          type: boolean
+          description: Whether new user registration is disabled on this instance.
+        cookieDomain:
+          type: string
+          description: Domain scope for authentication cookies.
+        enableGoogleFonts:
+          type: boolean
+          description: Whether Google Fonts are loaded in the form renderer.
+        stripePublishableKey:
+          type: string
+          description: Stripe publishable API key for payment forms.
+        googleRecaptchaKey:
+          type: string
+          description: Google reCAPTCHA site key for spam protection.
+        verifyEmailResendCooldownSeconds:
+          type: integer
+          description: Seconds the user must wait before requesting another verification email.
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: heyform_sid
+      description: Session cookie set by the login mutation or OAuth callback. All authenticated GraphQL mutations and the CSV export endpoint require this cookie.
+externalDocs:
+  description: HeyForm Documentation
+  url: https://docs.heyform.net

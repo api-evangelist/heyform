@@ -1,0 +1,100 @@
+openapi: 3.0.3
+info:
+  title: HeyForm Auth Images API
+  description: HeyForm is an open-source conversational form builder providing REST and GraphQL endpoints for managing forms, submissions, workspaces, integrations, and webhooks. The primary data API uses GraphQL; this document covers the publicly accessible REST endpoints discovered in the open-source codebase.
+  version: 1.0.0
+  contact:
+    name: HeyForm Support
+    url: https://docs.heyform.net
+  license:
+    name: AGPL-3.0
+    url: https://github.com/heyform/heyform/blob/main/LICENSE
+servers:
+- url: https://api.heyform.net
+  description: HeyForm Cloud API
+- url: http://localhost:8000
+  description: Self-hosted HeyForm instance (default port)
+tags:
+- name: Images
+  description: Image proxy and resizing
+paths:
+  /api/image:
+    get:
+      operationId: proxyImage
+      summary: Proxy and resize an image
+      description: Fetches a remote image from an allowed host, optionally resizes it, and returns the result with long-lived cache headers. Useful for embedding external images in forms without leaking user IP addresses.
+      tags:
+      - Images
+      parameters:
+      - name: url
+        in: query
+        required: true
+        description: The URL of the remote image to proxy.
+        schema:
+          type: string
+          format: uri
+        example: https://images.unsplash.com/photo-abc123
+      - name: w
+        in: query
+        required: false
+        description: Target width in pixels.
+        schema:
+          type: integer
+          minimum: 1
+        example: 800
+      - name: h
+        in: query
+        required: false
+        description: Target height in pixels.
+        schema:
+          type: integer
+          minimum: 1
+        example: 600
+      responses:
+        '200':
+          description: Image content
+          content:
+            image/*:
+              schema:
+                type: string
+                format: binary
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+              example: public, max-age=315360000, must-revalidate
+        '204':
+          description: Empty response when the image cannot be fetched or is invalid.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+components:
+  responses:
+    BadRequest:
+      description: Bad request — invalid input or business logic violation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            statusCode: 400
+            message: The form does not exist
+            error: Bad Request
+  schemas:
+    Error:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+        message:
+          type: string
+        error:
+          type: string
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: heyform_sid
+      description: Session cookie set by the login mutation or OAuth callback. All authenticated GraphQL mutations and the CSV export endpoint require this cookie.
+externalDocs:
+  description: HeyForm Documentation
+  url: https://docs.heyform.net
