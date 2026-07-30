@@ -10,7 +10,20 @@ description: >-
   developers who want full data ownership. Licensed under AGPL-3.0, it can be
   self-hosted or used via the managed cloud service.
 type: Index
-image: >-
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/heyform.png
   https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: >-
   https://raw.githubusercontent.com/api-evangelist/heyform/refs/heads/main/apis.yml
@@ -30,28 +43,104 @@ tags:
   - Self-Hosted
 
 apis:
-  - aid: heyform:heyform-api
-    name: HeyForm API
-    description: >-
-      RESTful API for programmatically managing forms, submissions, webhooks,
-      and workspace resources. Supports creating and publishing forms,
-      retrieving response data, configuring integrations, and embedding forms
-      via a JavaScript embed library.
-    humanURL: https://docs.heyform.net
-    baseURL: https://api.heyform.net
-    tags:
-      - Forms
-      - Submissions
-      - Webhooks
-      - Integrations
-    properties:
-      - type: Documentation
-        url: https://docs.heyform.net
-      - type: Webhooks
-        url: https://docs.heyform.net/integrations/webhook
-      - type: OpenAPI
-        url: openapi/heyform-heyform-api-openapi.yml
-
+- aid: heyform:heyform-auth-api
+  name: HeyForm Auth API
+  description: Authentication and social login (OAuth)
+  humanURL: https://docs.heyform.net
+  baseURL: https://api.heyform.net
+  tags:
+  - Auth
+  properties:
+  - type: OpenAPI
+    url: openapi/heyform-auth-api-openapi.yml
+  - type: Documentation
+    url: https://docs.heyform.net
+  - type: Webhooks
+    url: https://docs.heyform.net/integrations/webhook
+- aid: heyform:heyform-config-api
+  name: HeyForm Config API
+  description: Runtime configuration
+  humanURL: https://docs.heyform.net
+  baseURL: https://api.heyform.net
+  tags:
+  - Config
+  properties:
+  - type: OpenAPI
+    url: openapi/heyform-config-api-openapi.yml
+  - type: Documentation
+    url: https://docs.heyform.net
+  - type: Webhooks
+    url: https://docs.heyform.net/integrations/webhook
+- aid: heyform:heyform-forms-api
+  name: HeyForm Forms API
+  description: Form rendering (public endpoint)
+  humanURL: https://docs.heyform.net
+  baseURL: https://api.heyform.net
+  tags:
+  - Forms
+  properties:
+  - type: OpenAPI
+    url: openapi/heyform-forms-api-openapi.yml
+  - type: Documentation
+    url: https://docs.heyform.net
+  - type: Webhooks
+    url: https://docs.heyform.net/integrations/webhook
+- aid: heyform:heyform-graphql-api
+  name: HeyForm GraphQL API
+  description: Primary data API (GraphQL over HTTP)
+  humanURL: https://docs.heyform.net
+  baseURL: https://api.heyform.net
+  tags:
+  - GraphQL
+  properties:
+  - type: OpenAPI
+    url: openapi/heyform-graphql-api-openapi.yml
+  - type: Documentation
+    url: https://docs.heyform.net
+  - type: Webhooks
+    url: https://docs.heyform.net/integrations/webhook
+- aid: heyform:heyform-images-api
+  name: HeyForm Images API
+  description: Image proxy and resizing
+  humanURL: https://docs.heyform.net
+  baseURL: https://api.heyform.net
+  tags:
+  - Images
+  properties:
+  - type: OpenAPI
+    url: openapi/heyform-images-api-openapi.yml
+  - type: Documentation
+    url: https://docs.heyform.net
+  - type: Webhooks
+    url: https://docs.heyform.net/integrations/webhook
+- aid: heyform:heyform-submissions-api
+  name: HeyForm Submissions API
+  description: Export form submission data
+  humanURL: https://docs.heyform.net
+  baseURL: https://api.heyform.net
+  tags:
+  - Submissions
+  properties:
+  - type: OpenAPI
+    url: openapi/heyform-submissions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.heyform.net
+  - type: Webhooks
+    url: https://docs.heyform.net/integrations/webhook
+- aid: heyform:heyform-upload-api
+  name: HeyForm Upload API
+  description: File upload
+  humanURL: https://docs.heyform.net
+  baseURL: https://api.heyform.net
+  tags:
+  - Upload
+  properties:
+  - type: OpenAPI
+    url: openapi/heyform-upload-api-openapi.yml
+  - type: Documentation
+    url: https://docs.heyform.net
+  - type: Webhooks
+    url: https://docs.heyform.net/integrations/webhook
 common:
   - type: AgenticAccess
     url: agentic-access/heyform-agentic-access.yml
