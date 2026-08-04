@@ -1,0 +1,706 @@
+openapi: 3.0.3
+info:
+  title: HeyForm API
+  description: >-
+    HeyForm is an open-source conversational form builder providing REST and
+    GraphQL endpoints for managing forms, submissions, workspaces, integrations,
+    and webhooks. The primary data API uses GraphQL; this document covers the
+    publicly accessible REST endpoints discovered in the open-source codebase.
+  version: 1.0.0
+  contact:
+    name: HeyForm Support
+    url: https://docs.heyform.net
+  license:
+    name: AGPL-3.0
+    url: https://github.com/heyform/heyform/blob/main/LICENSE
+externalDocs:
+  description: HeyForm Documentation
+  url: https://docs.heyform.net
+servers:
+  - url: https://api.heyform.net
+    description: HeyForm Cloud API
+  - url: http://localhost:8000
+    description: Self-hosted HeyForm instance (default port)
+
+tags:
+  - name: Config
+    description: Runtime configuration
+  - name: Auth
+    description: Authentication and social login (OAuth)
+  - name: Forms
+    description: Form rendering (public endpoint)
+  - name: Submissions
+    description: Export form submission data
+  - name: Upload
+    description: File upload
+  - name: Images
+    description: Image proxy and resizing
+  - name: GraphQL
+    description: Primary data API (GraphQL over HTTP)
+
+paths:
+  /api/config:
+    get:
+      operationId: getConfig
+      summary: Get runtime configuration
+      description: >-
+        Returns the public runtime configuration for the HeyForm application,
+        including homepage URL, feature flags, and third-party integration keys.
+      tags:
+        - Config
+      responses:
+        '200':
+          description: Runtime configuration object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuntimeConfig'
+              example:
+                homepageURL: 'https://heyform.net'
+                websiteURL: 'https://heyform.net'
+                appDisableRegistration: false
+                cookieDomain: 'heyform.net'
+                enableGoogleFonts: true
+                stripePublishableKey: 'pk_live_...'
+                googleRecaptchaKey: '6Le...'
+                verifyEmailResendCooldownSeconds: 60
+
+  /api/export/submissions:
+    get:
+      operationId: exportSubmissions
+      summary: Export form submissions as CSV
+      description: >-
+        Downloads all submissions for a given form as a CSV file. Requires
+        authentication and the caller must own or have access to the specified form.
+      tags:
+        - Submissions
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: formId
+          in: query
+          required: true
+          description: The unique identifier of the form whose submissions to export.
+          schema:
+            type: string
+          example: abc123xyz
+      responses:
+        '200':
+          description: CSV file containing all form submissions
+          content:
+            text/csv:
+              schema:
+                type: string
+                format: binary
+          headers:
+            Content-Disposition:
+              schema:
+                type: string
+              example: 'attachment; filename="My%20Form-2026-06-13.csv"'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /api/upload:
+    post:
+      operationId: uploadFile
+      summary: Upload a file
+      description: >-
+        Uploads a file (image or document) to the HeyForm storage backend.
+        Returns the URL at which the uploaded file can be accessed. SVG files
+        are blocked for security reasons.
+      tags:
+        - Upload
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The file to upload.
+      responses:
+        '201':
+          description: File uploaded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadResult'
+              example:
+                filename: 'photo.jpg'
+                url: 'https://heyform.net/static/upload/photo-abc123.jpg'
+                size: 204800
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+  /api/image:
+    get:
+      operationId: proxyImage
+      summary: Proxy and resize an image
+      description: >-
+        Fetches a remote image from an allowed host, optionally resizes it, and
+        returns the result with long-lived cache headers. Useful for embedding
+        external images in forms without leaking user IP addresses.
+      tags:
+        - Images
+      parameters:
+        - name: url
+          in: query
+          required: true
+          description: The URL of the remote image to proxy.
+          schema:
+            type: string
+            format: uri
+          example: 'https://images.unsplash.com/photo-abc123'
+        - name: w
+          in: query
+          required: false
+          description: Target width in pixels.
+          schema:
+            type: integer
+            minimum: 1
+          example: 800
+        - name: h
+          in: query
+          required: false
+          description: Target height in pixels.
+          schema:
+            type: integer
+            minimum: 1
+          example: 600
+      responses:
+        '200':
+          description: Image content
+          content:
+            image/*:
+              schema:
+                type: string
+                format: binary
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+              example: 'public, max-age=315360000, must-revalidate'
+        '204':
+          description: Empty response when the image cannot be fetched or is invalid.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+  /form/{formId}:
+    get:
+      operationId: renderForm
+      summary: Render a public form
+      description: >-
+        Serves the HTML shell for a published form. This is the embeddable
+        public-facing form page. The form data itself is loaded dynamically via
+        the GraphQL endpoint.
+      tags:
+        - Forms
+      parameters:
+        - name: formId
+          in: path
+          required: true
+          description: The unique identifier of the form to render.
+          schema:
+            type: string
+          example: abc123xyz
+      responses:
+        '200':
+          description: HTML page containing the rendered form
+          content:
+            text/html:
+              schema:
+                type: string
+
+  /connect/{kind}:
+    get:
+      operationId: socialLoginInitiate
+      summary: Initiate social login (OAuth)
+      description: >-
+        Redirects the user to the OAuth provider's authorization URL.
+        Supported providers include Google, GitHub, and Apple.
+      tags:
+        - Auth
+      parameters:
+        - name: kind
+          in: path
+          required: true
+          description: The OAuth provider identifier (e.g. google, github, apple).
+          schema:
+            type: string
+            enum:
+              - google
+              - github
+              - apple
+          example: google
+        - name: state
+          in: query
+          required: true
+          description: >-
+            Browser ID / CSRF state token generated by the client to correlate
+            the callback.
+          schema:
+            type: string
+          example: DMbcJqLJ
+        - name: redirect_uri
+          in: query
+          required: false
+          description: Optional URI to redirect to after successful login.
+          schema:
+            type: string
+            format: uri
+      responses:
+        '302':
+          description: Redirect to OAuth provider authorization URL
+          headers:
+            Location:
+              schema:
+                type: string
+                format: uri
+        '200':
+          description: >-
+            Error page rendered in HTML when the state is missing or the
+            provider is unsupported.
+          content:
+            text/html:
+              schema:
+                type: string
+
+  /connect/{kind}/callback:
+    get:
+      operationId: socialLoginCallbackGet
+      summary: Handle OAuth callback (GET)
+      description: >-
+        Receives the OAuth authorization code from the provider (GET variant,
+        used by most providers). Validates state, exchanges code for tokens,
+        and logs the user in.
+      tags:
+        - Auth
+      parameters:
+        - name: kind
+          in: path
+          required: true
+          description: The OAuth provider identifier.
+          schema:
+            type: string
+            enum:
+              - google
+              - github
+              - apple
+          example: google
+        - name: code
+          in: query
+          required: false
+          description: Authorization code returned by the OAuth provider.
+          schema:
+            type: string
+        - name: state
+          in: query
+          required: true
+          description: CSRF state token to verify.
+          schema:
+            type: string
+      responses:
+        '302':
+          description: Redirect to dashboard after successful login
+          headers:
+            Location:
+              schema:
+                type: string
+        '200':
+          description: Error page on failure
+          content:
+            text/html:
+              schema:
+                type: string
+    post:
+      operationId: socialLoginCallbackPost
+      summary: Handle OAuth callback (POST)
+      description: >-
+        Receives the OAuth authorization code from the provider via POST (used
+        by Sign in with Apple which posts directly to the backend).
+      tags:
+        - Auth
+      parameters:
+        - name: kind
+          in: path
+          required: true
+          description: The OAuth provider identifier.
+          schema:
+            type: string
+            enum:
+              - apple
+          example: apple
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                  description: Authorization code from Apple.
+                state:
+                  type: string
+                  description: CSRF state token.
+      responses:
+        '302':
+          description: Redirect to dashboard after successful login
+        '200':
+          description: Error page on failure
+          content:
+            text/html:
+              schema:
+                type: string
+
+  /graphql:
+    post:
+      operationId: graphqlEndpoint
+      summary: GraphQL API endpoint
+      description: >-
+        The primary HeyForm data API. All form management operations (create,
+        update, delete, publish), user operations (login, sign-up, password
+        reset), submission retrieval, project management, team management,
+        integration configuration, and the public form open/submit flow are
+        handled through this GraphQL endpoint. Authentication uses HTTP-only
+        cookies set during login. Key mutations and queries include:
+        login, signUp, createForm, updateFormSchemas, publishForm, deleteForm,
+        openForm, completeSubmission, submissions, deleteSubmission,
+        createProject, createTeam, updateIntegrationSettings.
+      tags:
+        - GraphQL
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GraphQLRequest'
+            examples:
+              openForm:
+                summary: Open a published form (public)
+                value:
+                  query: |
+                    query openForm($input: OpenFormInput!) {
+                      openForm(input: $input)
+                    }
+                  variables:
+                    input:
+                      formId: abc123xyz
+              completeSubmission:
+                summary: Submit answers to a form (public)
+                value:
+                  query: |
+                    mutation completeSubmission($input: CompleteSubmissionInput!) {
+                      completeSubmission(input: $input) {
+                        clientSecret
+                      }
+                    }
+                  variables:
+                    input:
+                      formId: abc123xyz
+                      openToken: eyJ...
+                      answers:
+                        - id: field1
+                          value: Jane Doe
+              login:
+                summary: Authenticate with email and password
+                value:
+                  query: |
+                    query login($input: LoginInput!) {
+                      login(input: $input)
+                    }
+                  variables:
+                    input:
+                      email: user@example.com
+                      password: secret
+              createForm:
+                summary: Create a new form
+                value:
+                  query: |
+                    mutation createForm($input: CreateFormInput!) {
+                      createForm(input: $input)
+                    }
+                  variables:
+                    input:
+                      projectId: proj123
+                      name: Customer Feedback
+      responses:
+        '200':
+          description: GraphQL response (errors are returned inline per the GraphQL spec)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GraphQLResponse'
+
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: heyform_sid
+      description: >-
+        Session cookie set by the login mutation or OAuth callback. All
+        authenticated GraphQL mutations and the CSV export endpoint require
+        this cookie.
+
+  schemas:
+    RuntimeConfig:
+      type: object
+      description: Public runtime configuration returned by /api/config.
+      properties:
+        homepageURL:
+          type: string
+          format: uri
+          description: Application homepage URL.
+        websiteURL:
+          type: string
+          format: uri
+          description: Website URL (may match homepageURL).
+        appDisableRegistration:
+          type: boolean
+          description: Whether new user registration is disabled on this instance.
+        cookieDomain:
+          type: string
+          description: Domain scope for authentication cookies.
+        enableGoogleFonts:
+          type: boolean
+          description: Whether Google Fonts are loaded in the form renderer.
+        stripePublishableKey:
+          type: string
+          description: Stripe publishable API key for payment forms.
+        googleRecaptchaKey:
+          type: string
+          description: Google reCAPTCHA site key for spam protection.
+        verifyEmailResendCooldownSeconds:
+          type: integer
+          description: Seconds the user must wait before requesting another verification email.
+
+    UploadResult:
+      type: object
+      description: Result of a successful file upload.
+      required:
+        - filename
+        - url
+        - size
+      properties:
+        filename:
+          type: string
+          description: Original filename of the uploaded file.
+        url:
+          type: string
+          format: uri
+          description: Publicly accessible URL of the uploaded file.
+        size:
+          type: integer
+          description: File size in bytes.
+
+    Answer:
+      type: object
+      description: A single answer submitted for a form field.
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          description: The field identifier this answer is for.
+        value:
+          description: >-
+            The answer value. Type depends on the field kind (string for
+            short_text, array for multiple_choice, object for payment, etc.).
+          oneOf:
+            - type: string
+            - type: number
+            - type: boolean
+            - type: array
+              items: {}
+            - type: object
+
+    WebhookPayload:
+      type: object
+      description: >-
+        JSON payload delivered by HeyForm to a configured webhook URL when a
+        new form submission is received.
+      properties:
+        id:
+          type: string
+          description: Unique submission identifier.
+          example: sub_abc123
+        formId:
+          type: string
+          description: Identifier of the form that received the submission.
+          example: form_xyz789
+        formName:
+          type: string
+          description: Display name of the form.
+          example: Customer Feedback
+        fields:
+          type: array
+          description: Full field configuration array (metadata about each question).
+          items:
+            $ref: '#/components/schemas/FormField'
+        answers:
+          type: array
+          description: Array of answers provided by the respondent.
+          items:
+            $ref: '#/components/schemas/SubmissionAnswer'
+        hiddenFields:
+          type: array
+          description: Pre-populated or system hidden fields included in the submission.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              value:
+                type: string
+        variables:
+          type: array
+          description: Calculated variables (e.g. quiz scores) derived from the submission.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              value:
+                type: number
+
+    FormField:
+      type: object
+      description: Metadata describing a single field (question) within a form.
+      properties:
+        id:
+          type: string
+          description: Unique field identifier.
+        title:
+          type: string
+          description: The question text displayed to the respondent.
+        kind:
+          type: string
+          description: Field type.
+          enum:
+            - short_text
+            - long_text
+            - multiple_choice
+            - picture_choice
+            - yes_no
+            - rating
+            - opinion_scale
+            - date
+            - time
+            - number
+            - email
+            - url
+            - phone_number
+            - file_upload
+            - payment
+            - signature
+            - thank_you
+            - statement
+            - welcome
+            - group
+
+    SubmissionAnswer:
+      type: object
+      description: A single answer within a webhook submission payload.
+      properties:
+        id:
+          type: string
+          description: Field identifier.
+        title:
+          type: string
+          description: The question text.
+        kind:
+          type: string
+          description: Field type (matches FormField.kind enum).
+        value:
+          description: The respondent's answer value.
+
+    GraphQLRequest:
+      type: object
+      required:
+        - query
+      properties:
+        query:
+          type: string
+          description: GraphQL query or mutation document.
+        variables:
+          type: object
+          description: Variable values for the query.
+          additionalProperties: true
+        operationName:
+          type: string
+          description: Name of the operation to execute (when the document contains multiple).
+
+    GraphQLResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          description: The data returned by the GraphQL operation.
+          additionalProperties: true
+        errors:
+          type: array
+          description: Array of GraphQL errors, if any.
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+              locations:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    line:
+                      type: integer
+                    column:
+                      type: integer
+              path:
+                type: array
+                items: {}
+              extensions:
+                type: object
+                additionalProperties: true
+
+    Error:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+        message:
+          type: string
+        error:
+          type: string
+
+  responses:
+    BadRequest:
+      description: Bad request — invalid input or business logic violation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            statusCode: 400
+            message: The form does not exist
+            error: Bad Request
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            statusCode: 401
+            message: Unauthorized
+            error: Unauthorized

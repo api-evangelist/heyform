@@ -1,0 +1,26 @@
+{
+  "provider": "heyform",
+  "sources": [
+    "heyform-auth-api-openapi.yml",
+    "heyform-config-api-openapi.yml",
+    "heyform-forms-api-openapi.yml",
+    "heyform-graphql-api-openapi.yml",
+    "heyform-images-api-openapi.yml",
+    "heyform-submissions-api-openapi.yml",
+    "heyform-upload-api-openapi.yml"
+  ],
+  "outputs": [
+    "heyform-auth-api-openapi.yml",
+    "heyform-config-api-openapi.yml",
+    "heyform-forms-api-openapi.yml",
+    "heyform-graphql-api-openapi.yml",
+    "heyform-images-api-openapi.yml",
+    "heyform-submissions-api-openapi.yml",
+    "heyform-upload-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
