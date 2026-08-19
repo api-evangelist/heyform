@@ -1,0 +1,248 @@
+{
+  "item": [
+    {
+      "id": "57a8b2b1-a51e-4be4-a722-a54788108827",
+      "name": "Submissions",
+      "description": {
+        "content": "Export form submission data",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "66f3b383-3377-4cc7-a81b-6ef8a362f14b",
+          "name": "Export form submissions as CSV",
+          "request": {
+            "name": "Export form submissions as CSV",
+            "description": {
+              "content": "Downloads all submissions for a given form as a CSV file. Requires authentication and the caller must own or have access to the specified form.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "export",
+                "submissions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "formId",
+                  "value": "<string>",
+                  "description": "(Required) The unique identifier of the form whose submissions to export."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/csv"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "heyform_sid"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0483c6bb-b106-488b-ae4e-1747968f027c",
+              "name": "CSV file containing all form submissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "export",
+                    "submissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "formId",
+                      "value": "abc123xyz"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "heyform_sid",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/csv"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Content-Disposition",
+                  "value": "attachment; filename=\"My%20Form-2026-06-13.csv\"",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/csv"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "35bf3cc9-aabf-4537-acc1-bd079b46255a",
+              "name": "Bad request — invalid input or business logic violation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "export",
+                    "submissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "formId",
+                      "value": "abc123xyz"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "heyform_sid",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The form does not exist\",\n  \"error\": \"Bad Request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c935d2c9-c241-4dde-b2b8-145a0bb430e5",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "export",
+                    "submissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "formId",
+                      "value": "abc123xyz"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "heyform_sid",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"message\": \"Unauthorized\",\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.heyform.net",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c003a1ea-fae3-4a14-9984-3bed0c4b2938",
+    "name": "HeyForm Auth Submissions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "HeyForm is an open-source conversational form builder providing REST and GraphQL endpoints for managing forms, submissions, workspaces, integrations, and webhooks. The primary data API uses GraphQL; this document covers the publicly accessible REST endpoints discovered in the open-source codebase.\n\nContact Support:\n Name: HeyForm Support",
+      "type": "text/plain"
+    }
+  }
+}

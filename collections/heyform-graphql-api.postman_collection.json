@@ -1,0 +1,147 @@
+{
+  "item": [
+    {
+      "id": "47fc3b33-662b-4002-b69c-29f2e61649c3",
+      "name": "GraphQL",
+      "description": {
+        "content": "Primary data API (GraphQL over HTTP)",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a0179d14-e3ef-470b-8cb3-50509fef875c",
+          "name": "GraphQL API endpoint",
+          "request": {
+            "name": "GraphQL API endpoint",
+            "description": {
+              "content": "The primary HeyForm data API. All form management operations (create, update, delete, publish), user operations (login, sign-up, password reset), submission retrieval, project management, team management, integration configuration, and the public form open/submit flow are handled through this GraphQL endpoint. Authentication uses HTTP-only cookies set during login. Key mutations and queries include: login, signUp, createForm, updateFormSchemas, publishForm, deleteForm, openForm, completeSubmission, submissions, deleteSubmission, createProject, createTeam, updateIntegrationSettings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "graphql"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "heyform_sid"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<string>\",\n  \"variables\": {\n    \"key_0\": true\n  },\n  \"operationName\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ef340e27-3db4-437f-b538-b707038c704c",
+              "name": "GraphQL response (errors are returned inline per the GraphQL spec)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "graphql"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "heyform_sid",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query openForm($input: OpenFormInput!) {\\n  openForm(input: $input)\\n}\\n\",\n  \"variables\": {\n    \"input\": {\n      \"formId\": \"abc123xyz\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"key_0\": 35,\n    \"key_1\": \"string\"\n  },\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"locations\": [\n        {\n          \"line\": 8106,\n          \"column\": 6922\n        },\n        {\n          \"line\": 8107,\n          \"column\": 3928\n        }\n      ],\n      \"extensions\": {\n        \"key_0\": 976,\n        \"key_1\": true\n      }\n    },\n    {\n      \"message\": \"string\",\n      \"locations\": [\n        {\n          \"line\": 1198,\n          \"column\": 2126\n        },\n        {\n          \"line\": 139,\n          \"column\": 1532\n        }\n      ],\n      \"extensions\": {\n        \"key_0\": 7380.266205593053,\n        \"key_1\": 7823\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.heyform.net",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a2e9d92a-1f73-48d2-aafe-49a36d986ff4",
+    "name": "HeyForm Auth GraphQL API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "HeyForm is an open-source conversational form builder providing REST and GraphQL endpoints for managing forms, submissions, workspaces, integrations, and webhooks. The primary data API uses GraphQL; this document covers the publicly accessible REST endpoints discovered in the open-source codebase.\n\nContact Support:\n Name: HeyForm Support",
+      "type": "text/plain"
+    }
+  }
+}

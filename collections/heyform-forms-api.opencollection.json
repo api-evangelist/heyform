@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "HeyForm Auth Forms API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Forms",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Render a public form",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.heyform.net/form/:formId",
+            "params": [
+              {
+                "name": "formId",
+                "value": "abc123xyz",
+                "type": "path",
+                "description": "The unique identifier of the form to render."
+              }
+            ]
+          },
+          "docs": "Serves the HTML shell for a published form. This is the embeddable public-facing form page. The form data itself is loaded dynamically via the GraphQL endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

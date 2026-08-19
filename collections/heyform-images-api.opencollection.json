@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "HeyForm Auth Images API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Images",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Proxy and resize an image",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.heyform.net/api/image",
+            "params": [
+              {
+                "name": "url",
+                "value": "https://images.unsplash.com/photo-abc123",
+                "type": "query",
+                "description": "The URL of the remote image to proxy."
+              },
+              {
+                "name": "w",
+                "value": "800",
+                "type": "query",
+                "description": "Target width in pixels."
+              },
+              {
+                "name": "h",
+                "value": "600",
+                "type": "query",
+                "description": "Target height in pixels."
+              }
+            ]
+          },
+          "docs": "Fetches a remote image from an allowed host, optionally resizes it, and returns the result with long-lived cache headers. Useful for embedding external images in forms without leaking user IP addresses."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

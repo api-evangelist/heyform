@@ -1,0 +1,104 @@
+{
+  "item": [
+    {
+      "id": "d567d69e-078d-4784-b581-387e52218f11",
+      "name": "Config",
+      "description": {
+        "content": "Runtime configuration",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6e5df909-c021-4930-a193-7c21ac3f91e3",
+          "name": "Get runtime configuration",
+          "request": {
+            "name": "Get runtime configuration",
+            "description": {
+              "content": "Returns the public runtime configuration for the HeyForm application, including homepage URL, feature flags, and third-party integration keys.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "config"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a357c0f7-d6e4-41ed-9db7-5e2f450094fa",
+              "name": "Runtime configuration object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"homepageURL\": \"https://heyform.net\",\n  \"websiteURL\": \"https://heyform.net\",\n  \"appDisableRegistration\": false,\n  \"cookieDomain\": \"heyform.net\",\n  \"enableGoogleFonts\": true,\n  \"stripePublishableKey\": \"pk_live_...\",\n  \"googleRecaptchaKey\": \"6Le...\",\n  \"verifyEmailResendCooldownSeconds\": 60\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.heyform.net",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f6417452-ab52-4d22-b221-58ec67e154d1",
+    "name": "HeyForm Auth Config API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "HeyForm is an open-source conversational form builder providing REST and GraphQL endpoints for managing forms, submissions, workspaces, integrations, and webhooks. The primary data API uses GraphQL; this document covers the publicly accessible REST endpoints discovered in the open-source codebase.\n\nContact Support:\n Name: HeyForm Support",
+      "type": "text/plain"
+    }
+  }
+}

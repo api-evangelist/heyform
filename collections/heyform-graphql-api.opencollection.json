@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "HeyForm Auth GraphQL API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "GraphQL",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GraphQL API endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.heyform.net/graphql",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "heyform_sid",
+              "value": "{{heyform_sid}}",
+              "placement": "query"
+            }
+          },
+          "docs": "The primary HeyForm data API. All form management operations (create, update, delete, publish), user operations (login, sign-up, password reset), submission retrieval, project management, team management, integration configuration, and the public form open/submit flow are handled through this GraphQL endpoint. Authentication uses HTTP-only cookies set during login. Key mutations and queries include: login, signUp, createForm, updateFormSchemas, publishForm, deleteForm, openForm, completeSubmissi"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

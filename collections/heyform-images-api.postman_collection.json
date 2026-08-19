@@ -1,0 +1,234 @@
+{
+  "item": [
+    {
+      "id": "a4df7946-8ee6-48ec-ae42-86a0260441e0",
+      "name": "Images",
+      "description": {
+        "content": "Image proxy and resizing",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "893c5907-3fa5-4e3e-9787-5cc3faf526f3",
+          "name": "Proxy and resize an image",
+          "request": {
+            "name": "Proxy and resize an image",
+            "description": {
+              "content": "Fetches a remote image from an allowed host, optionally resizes it, and returns the result with long-lived cache headers. Useful for embedding external images in forms without leaking user IP addresses.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "image"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "url",
+                  "value": "<uri>",
+                  "description": "(Required) The URL of the remote image to proxy."
+                },
+                {
+                  "disabled": false,
+                  "key": "w",
+                  "value": "<integer>",
+                  "description": "Target width in pixels."
+                },
+                {
+                  "disabled": false,
+                  "key": "h",
+                  "value": "<integer>",
+                  "description": "Target height in pixels."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "image/*"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "95d211d9-bdd7-4ba8-ae5d-ae387f715a4c",
+              "name": "Image content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "image"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "url",
+                      "value": "https://images.unsplash.com/photo-abc123"
+                    },
+                    {
+                      "key": "w",
+                      "value": "800"
+                    },
+                    {
+                      "key": "h",
+                      "value": "600"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "image/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Cache-Control",
+                  "value": "public, max-age=315360000, must-revalidate",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "image/*"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "76ccdc75-e033-45bf-ac73-71d806eaebca",
+              "name": "Empty response when the image cannot be fetched or is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "image"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "url",
+                      "value": "https://images.unsplash.com/photo-abc123"
+                    },
+                    {
+                      "key": "w",
+                      "value": "800"
+                    },
+                    {
+                      "key": "h",
+                      "value": "600"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "78c119c2-9345-4c40-a328-e74657da3821",
+              "name": "Bad request — invalid input or business logic violation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "image"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "url",
+                      "value": "https://images.unsplash.com/photo-abc123"
+                    },
+                    {
+                      "key": "w",
+                      "value": "800"
+                    },
+                    {
+                      "key": "h",
+                      "value": "600"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The form does not exist\",\n  \"error\": \"Bad Request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.heyform.net",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "8c8af0a6-56dc-423c-b3fc-388aea7b14b5",
+    "name": "HeyForm Auth Images API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "HeyForm is an open-source conversational form builder providing REST and GraphQL endpoints for managing forms, submissions, workspaces, integrations, and webhooks. The primary data API uses GraphQL; this document covers the publicly accessible REST endpoints discovered in the open-source codebase.\n\nContact Support:\n Name: HeyForm Support",
+      "type": "text/plain"
+    }
+  }
+}
