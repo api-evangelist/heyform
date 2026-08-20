@@ -36,6 +36,17 @@ tags:
   - Quizzes
   - Polls
   - Conversational Forms
+  - Open-Source
+  - Webhook
+  - No-Code
+  - Form Builder
+  - Self-Hosted
+tags_raw:
+  - Forms
+  - Surveys
+  - Quizzes
+  - Polls
+  - Conversational Forms
   - Open Source
   - Webhooks
   - No-Code
@@ -49,6 +60,8 @@ apis:
   humanURL: https://docs.heyform.net
   baseURL: https://api.heyform.net
   tags:
+  - Authentication
+  tags_raw:
   - Auth
   properties:
   - type: OpenAPI
@@ -105,6 +118,8 @@ apis:
   humanURL: https://docs.heyform.net
   baseURL: https://api.heyform.net
   tags:
+  - Image
+  tags_raw:
   - Images
   properties:
   - type: OpenAPI
