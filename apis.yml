@@ -110,20 +110,6 @@ apis:
     url: https://docs.heyform.net
   - type: Webhooks
     url: https://docs.heyform.net/integrations/webhook
-- aid: heyform:heyform-graphql-api
-  name: HeyForm GraphQL API
-  description: Primary data API (GraphQL over HTTP)
-  humanURL: https://docs.heyform.net
-  baseURL: https://api.heyform.net
-  tags:
-  - GraphQL
-  properties:
-  - type: OpenAPI
-    url: openapi/heyform-graphql-api-openapi.yml
-  - type: Documentation
-    url: https://docs.heyform.net
-  - type: Webhooks
-    url: https://docs.heyform.net/integrations/webhook
 - aid: heyform:heyform-images-api
   name: HeyForm Images API
   description: Image proxy and resizing
@@ -164,6 +150,20 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/heyform-upload-api-openapi.yml
+  - type: Documentation
+    url: https://docs.heyform.net
+  - type: Webhooks
+    url: https://docs.heyform.net/integrations/webhook
+- aid: heyform:heyform-graph-ql-api
+  name: HeyForm Graph QL API
+  description: Primary data API (GraphQL over HTTP)
+  humanURL: https://docs.heyform.net
+  baseURL: https://api.heyform.net
+  tags:
+  - Graph QL
+  properties:
+  - type: OpenAPI
+    url: openapi/heyform-graph-ql-api-openapi.yml
   - type: Documentation
     url: https://docs.heyform.net
   - type: Webhooks
