@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: HeyForm Auth GraphQL API
+  title: HeyForm Graph QL API
   description: HeyForm is an open-source conversational form builder providing REST and GraphQL endpoints for managing forms, submissions, workspaces, integrations, and webhooks. The primary data API uses GraphQL; this document covers the publicly accessible REST endpoints discovered in the open-source codebase.
   version: 1.0.0
   contact:
@@ -15,7 +15,7 @@ servers:
 - url: http://localhost:8000
   description: Self-hosted HeyForm instance (default port)
 tags:
-- name: GraphQL
+- name: Graph QL
   description: Primary data API (GraphQL over HTTP)
 paths:
   /graphql:
@@ -24,7 +24,7 @@ paths:
       summary: GraphQL API endpoint
       description: 'The primary HeyForm data API. All form management operations (create, update, delete, publish), user operations (login, sign-up, password reset), submission retrieval, project management, team management, integration configuration, and the public form open/submit flow are handled through this GraphQL endpoint. Authentication uses HTTP-only cookies set during login. Key mutations and queries include: login, signUp, createForm, updateFormSchemas, publishForm, deleteForm, openForm, completeSubmission, submissions, deleteSubmission, createProject, createTeam, updateIntegrationSettings.'
       tags:
-      - GraphQL
+      - Graph QL
       security:
       - cookieAuth: []
       requestBody:
@@ -77,6 +77,21 @@ paths:
                 $ref: '#/components/schemas/GraphQLResponse'
 components:
   schemas:
+    GraphQLRequest:
+      type: object
+      required:
+      - query
+      properties:
+        query:
+          type: string
+          description: GraphQL query or mutation document.
+        variables:
+          type: object
+          description: Variable values for the query.
+          additionalProperties: true
+        operationName:
+          type: string
+          description: Name of the operation to execute (when the document contains multiple).
     GraphQLResponse:
       type: object
       properties:
@@ -107,21 +122,6 @@ components:
               extensions:
                 type: object
                 additionalProperties: true
-    GraphQLRequest:
-      type: object
-      required:
-      - query
-      properties:
-        query:
-          type: string
-          description: GraphQL query or mutation document.
-        variables:
-          type: object
-          description: Variable values for the query.
-          additionalProperties: true
-        operationName:
-          type: string
-          description: Name of the operation to execute (when the document contains multiple).
   securitySchemes:
     cookieAuth:
       type: apiKey

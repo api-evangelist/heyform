@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: HeyForm Auth Config API
+  title: HeyForm Config API
   description: HeyForm is an open-source conversational form builder providing REST and GraphQL endpoints for managing forms, submissions, workspaces, integrations, and webhooks. The primary data API uses GraphQL; this document covers the publicly accessible REST endpoints discovered in the open-source codebase.
   version: 1.0.0
   contact:

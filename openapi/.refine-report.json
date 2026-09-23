@@ -1,13 +1,7 @@
 {
   "provider": "heyform",
   "sources": [
-    "heyform-auth-api-openapi.yml",
-    "heyform-config-api-openapi.yml",
-    "heyform-forms-api-openapi.yml",
-    "heyform-graphql-api-openapi.yml",
-    "heyform-images-api-openapi.yml",
-    "heyform-submissions-api-openapi.yml",
-    "heyform-upload-api-openapi.yml"
+    "_original/heyform-heyform-api-openapi.yml"
   ],
   "outputs": [
     "heyform-auth-api-openapi.yml",
@@ -18,9 +12,24 @@
     "heyform-submissions-api-openapi.yml",
     "heyform-upload-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "heyform-heyform-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "superseded outputs removed: heyform-graph-ql-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 7 total)"
+  ],
+  "skipped": [
+    "heyform-auth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "heyform-config-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "heyform-forms-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "heyform-graph-ql-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "heyform-images-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "heyform-submissions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "heyform-upload-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

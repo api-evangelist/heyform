@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: HeyForm Auth Images API
+  title: HeyForm Images API
   description: HeyForm is an open-source conversational form builder providing REST and GraphQL endpoints for managing forms, submissions, workspaces, integrations, and webhooks. The primary data API uses GraphQL; this document covers the publicly accessible REST endpoints discovered in the open-source codebase.
   version: 1.0.0
   contact:
@@ -68,6 +68,16 @@ paths:
         '400':
           $ref: '#/components/responses/BadRequest'
 components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+        message:
+          type: string
+        error:
+          type: string
   responses:
     BadRequest:
       description: Bad request — invalid input or business logic violation
@@ -79,16 +89,6 @@ components:
             statusCode: 400
             message: The form does not exist
             error: Bad Request
-  schemas:
-    Error:
-      type: object
-      properties:
-        statusCode:
-          type: integer
-        message:
-          type: string
-        error:
-          type: string
   securitySchemes:
     cookieAuth:
       type: apiKey
