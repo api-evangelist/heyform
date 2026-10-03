@@ -53,27 +53,7 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  schemas:
-    Error:
-      type: object
-      properties:
-        statusCode:
-          type: integer
-        message:
-          type: string
-        error:
-          type: string
   responses:
-    BadRequest:
-      description: Bad request — invalid input or business logic violation
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            statusCode: 400
-            message: The form does not exist
-            error: Bad Request
     Unauthorized:
       description: Authentication required
       content:
@@ -84,6 +64,26 @@ components:
             statusCode: 401
             message: Unauthorized
             error: Unauthorized
+    BadRequest:
+      description: Bad request — invalid input or business logic violation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            statusCode: 400
+            message: The form does not exist
+            error: Bad Request
+  schemas:
+    Error:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+        message:
+          type: string
+        error:
+          type: string
   securitySchemes:
     cookieAuth:
       type: apiKey

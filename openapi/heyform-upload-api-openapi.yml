@@ -53,15 +53,6 @@ paths:
           $ref: '#/components/responses/BadRequest'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        statusCode:
-          type: integer
-        message:
-          type: string
-        error:
-          type: string
     UploadResult:
       type: object
       description: Result of a successful file upload.
@@ -80,6 +71,15 @@ components:
         size:
           type: integer
           description: File size in bytes.
+    Error:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+        message:
+          type: string
+        error:
+          type: string
   responses:
     BadRequest:
       description: Bad request — invalid input or business logic violation

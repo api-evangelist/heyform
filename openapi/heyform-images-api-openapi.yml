@@ -68,16 +68,6 @@ paths:
         '400':
           $ref: '#/components/responses/BadRequest'
 components:
-  schemas:
-    Error:
-      type: object
-      properties:
-        statusCode:
-          type: integer
-        message:
-          type: string
-        error:
-          type: string
   responses:
     BadRequest:
       description: Bad request — invalid input or business logic violation
@@ -89,6 +79,16 @@ components:
             statusCode: 400
             message: The form does not exist
             error: Bad Request
+  schemas:
+    Error:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+        message:
+          type: string
+        error:
+          type: string
   securitySchemes:
     cookieAuth:
       type: apiKey
