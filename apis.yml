@@ -161,6 +161,8 @@ apis:
   humanURL: https://docs.heyform.net
   baseURL: https://api.heyform.net
   tags:
+  - GraphQL
+  tags_raw:
   - Graph QL
   properties:
   - type: OpenAPI
