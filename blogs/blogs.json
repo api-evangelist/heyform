@@ -2,11 +2,11 @@
   "repo": "heyform",
   "feeds": [
     {
-      "source": "https://www.linkedin.com/company/heyform",
-      "feed_url": "https://www.linkedin.com/company/heyform",
+      "source": "https://heyform.net/blog",
+      "feed_url": "https://heyform.net/blog/rss/",
       "title": "",
       "saved": 0,
-      "method": "none"
+      "method": "discovered"
     },
     {
       "source": "https://heyform.net/blog/feed/",
@@ -14,9 +14,16 @@
       "title": "",
       "saved": 0,
       "method": "feed"
+    },
+    {
+      "source": "https://www.linkedin.com/company/heyform",
+      "feed_url": "https://www.linkedin.com/company/heyform",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "fetched": "2026-10-03T12:30:02Z",
+  "fetched": "2026-10-10T13:15:00Z",
   "post_count": 14,
   "feed_nature": "vendor-blog",
   "feed_nature_basis": "path_blog",
