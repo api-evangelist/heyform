@@ -64,24 +64,162 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-HeyForm is an open-source conversational form builder that enables anyone to create engaging forms, surveys, quizzes, and polls without coding skills. It provides a REST API and webhook integrations for creating and managing forms, collecting responses, configuring conditional logic, and embedding forms in any web application.
+HeyForm is an open-source conversational form builder that enables anyone to create engaging forms, surveys, quizzes, and polls without coding. It provides a REST API and webhook integrations for creating and managing forms, collecting responses, configuring conditional logic, and embedding forms in any web application. With 30+ integrations including Zapier, Slack, Google Sheets, Airtable, HubSpot, and Stripe, HeyForm suits small businesses and developers who want full data ownership. Licensed under AGPL-3.0, it can be self-hosted or used via the managed cloud service.
 
-Licensed under AGPL-3.0, HeyForm can be self-hosted on your own infrastructure or used via the managed cloud service at [heyform.net](https://heyform.net).
+**Areas:** Forms · Surveys · Quizzes · Polls · Conversational Forms · Open Source · Webhook · No-Code · Form Builder · Self-Hosted
 
-## Links
+## HeyForm on APIs.io
 
-- **Website:** https://heyform.net
-- **Documentation:** https://docs.heyform.net
-- **GitHub:** https://github.com/heyform/heyform
-- **Blog:** https://heyform.net/blog
-- **Pricing:** https://heyform.net/pricing
-- **LinkedIn:** https://www.linkedin.com/company/heyform
+Everything profiled for HeyForm is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/heyform/](https://apis.io/providers/heyform/)** — or go straight to one of the APIs or properties below.
 
-## APIs.json
+### APIs (7)
 
-This repository contains an [APIs.json](https://apisjson.org) profile cataloguing HeyForm's public API surface, including:
+- [HeyForm Auth API](https://apis.io/apis/heyform/heyform-auth-api/) — Authentication and social login (OAuth)
+- [HeyForm Config API](https://apis.io/apis/heyform/heyform-config-api/) — Runtime configuration
+- [HeyForm Forms API](https://apis.io/apis/heyform/heyform-forms-api/) — Form rendering (public endpoint)
+- [HeyForm Images API](https://apis.io/apis/heyform/heyform-images-api/) — Image proxy and resizing
+- [HeyForm Submissions API](https://apis.io/apis/heyform/heyform-submissions-api/) — Export form submission data
+- [HeyForm Upload API](https://apis.io/apis/heyform/heyform-upload-api/) — File upload
+- [HeyForm Graph QL API](https://apis.io/apis/heyform/heyform-graph-ql-api/) — Primary data API (GraphQL over HTTP)
 
-- `apis.yml` — root APIs.json index
-- `plans/heyform-plans-pricing.yml` — API Commons Plans 0.1 pricing details
-- `rate-limits/heyform-rate-limits.yml` — API Commons Rate Limits 0.1
-- `finops/heyform-finops.yml` — FinOps Framework 1.0 FOCUS-aligned cost profile
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Heyform Agentic Access](https://apis.io/agentic-access/heyform/heyform-agentic-access/)
+
+#### JSON Schema (2)
+
+The data models the API reads and writes.
+
+- [HeyForm Form](https://apis.io/schemas/heyform/heyform-form/)
+- [HeyForm Submission](https://apis.io/schemas/heyform/heyform-submission/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Heyform Context](https://apis.io/jsonld/heyform/heyform-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [HeyForm Vocabulary](https://apis.io/vocabularies/heyform/heyform-vocabulary/)
+
+#### Examples (2)
+
+Example requests and responses.
+
+- [Heyform Graphql Complete Submission Example](https://apis.io/examples/heyform/heyform-graphql-complete-submission-example/)
+- [Heyform Webhook Payload Example](https://apis.io/examples/heyform/heyform-webhook-payload-example/)
+
+#### Collections (7)
+
+Postman and Open Collection request collections.
+
+- [HeyForm Auth API](https://apis.io/collections/heyform/open-heyform-auth-api/)
+- [HeyForm Auth Config API](https://apis.io/collections/heyform/open-heyform-config-api/)
+- [HeyForm Auth Forms API](https://apis.io/collections/heyform/open-heyform-forms-api/)
+- [HeyForm Auth GraphQL API](https://apis.io/collections/heyform/open-heyform-graphql-api/)
+- [HeyForm Auth Images API](https://apis.io/collections/heyform/open-heyform-images-api/)
+- [HeyForm Auth Submissions API](https://apis.io/collections/heyform/open-heyform-submissions-api/)
+- [HeyForm Auth Upload API](https://apis.io/collections/heyform/open-heyform-upload-api/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [HeyForm — jsonschema rules](https://apis.io/rules/heyform/heyform-jsonschema-spectral-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Heyform Authentication](https://apis.io/security/heyform/heyform-authentication/)
+- [Heyform Domain Security](https://apis.io/security/heyform/heyform-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Heyform Plans Pricing](https://apis.io/plans/heyform/heyform-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Heyform Rate Limits](https://apis.io/rate-limits/heyform/heyform-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Heyform Finops](https://apis.io/finops/heyform/heyform-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://heyform.net)
+- [Documentation](https://docs.heyform.net)
+- [Pricing](https://heyform.net/pricing)
+- [Blog](https://heyform.net/blog)
+- [Status](https://heyform.net)
+
+## API Evangelist rating
+
+**Kin Score 33.5** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 51.8 |
+| Contract governance | 9.8 |
+| Operational transparency | 36.8 |
+| Developer ergonomics | 23.8 |
+| Access clarity | 18.4 |
+
+**Agent readiness 26.8** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | unknown |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 16.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/heyform/](https://apis.io/providers/heyform/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for HeyForm: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/heyform/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
